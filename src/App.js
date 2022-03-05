@@ -1,8 +1,12 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
+// might need HashRouter if we get a blank white screen
 
 // Material UI 
 import Typography from "@material-ui/core/Typography";
+
+import StopList from './components/StopList';
+import StopForm from './components/StopForm';
 
 // probably want components for:
 // the List of Stops: StopList
@@ -33,9 +37,18 @@ function App() {
     setStops([stop, ...stops]);
   }
 
+  function removeStop(id) {
+    setStops(stops.filter(stop => stop.id !== id));
+  }
+
   return (
     <div className="App">
       <Typography style={{ padding: 16 }} variant="h2">CTA App</Typography>
+      <StopForm addStop={addStop} />
+      <StopList
+        stops={stops}
+        removeStop={removeStop}
+      />
     </div>
   );
 }
