@@ -2,6 +2,9 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 // might need HashRouter if we get a blank white screen
 
+// axios import
+import Axios from "axios";
+
 // Material UI 
 import Typography from "@material-ui/core/Typography";
 
@@ -41,6 +44,19 @@ function App() {
     setStops(stops.filter(stop => stop.id !== id));
   }
 
+  // need to install access control allow origin extension
+  const trainUrl = "http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key=&stpid=30125&outputType=JSON";
+
+  const getData = () => {
+    Axios.get(trainUrl).then(
+      (response) => {
+        console.log(response);
+      }
+    ).catch(err => {
+      console.log(err);
+    });
+  };
+
   return (
     <div className="App">
       <Typography style={{ padding: 16 }} variant="h2">CTA App</Typography>
@@ -49,6 +65,7 @@ function App() {
         stops={stops}
         removeStop={removeStop}
       />
+      <button onClick={getData}>Get CTA Data for Clybourn</button>
     </div>
   );
 }
