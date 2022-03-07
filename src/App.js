@@ -24,6 +24,7 @@ const LOCAL_STORAGE_KEY = 'cta-stop-list-stops';
 function App() {
 
   const [ stops, setStops ] = useState([]);
+  const [ trainData, setTrainData] = useState('');
 
   useEffect(() => {
     const storageStops = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
@@ -51,6 +52,7 @@ function App() {
     Axios.get(trainUrl).then(
       (response) => {
         console.log(response);
+        setTrainData(response.data.ctatt.eta[0].arrT);
       }
     ).catch(err => {
       console.log(err);
@@ -66,6 +68,7 @@ function App() {
         removeStop={removeStop}
       />
       <button onClick={getData}>Get CTA Data for Clybourn</button>
+      <h2>{trainData}</h2>
     </div>
   );
 }
