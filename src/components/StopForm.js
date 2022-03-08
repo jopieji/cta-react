@@ -13,6 +13,7 @@ function StopForm({ addStop }) {
     });
 
     function handleStopInputChange(e) {
+        // need to add stop id from cta tt api list on django site
         setStop( {...stop, stopName: e.target.value });
     }
 
@@ -33,7 +34,9 @@ function StopForm({ addStop }) {
                 value={stop.stopName}
                 onChange={handleStopInputChange}
             />
-            <Button type="submit">Submit</Button>    
+            <Button type="submit"
+                style={{color: "#e60000"}}
+            >Submit</Button>    
         </form>
     );
 }
