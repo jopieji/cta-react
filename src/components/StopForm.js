@@ -5,23 +5,26 @@ import React, { useState } from 'react';
 import { v4 } from "uuid";
 import { Button, TextField } from "@material-ui/core";
 
+
 function StopForm({ addStop }) {
 
     const [stop, setStop] = useState({
         id: "",
         stopName: "",
+        stopID: "",
     });
 
     function handleStopInputChange(e) {
         // need to add stop id from cta tt api list on django site
-        setStop( {...stop, stopName: e.target.value });
+        // maybe add this to get stopID's on stops?
+        setStop( {...stop, stopName: e.target.value});
     }
 
     function handleSubmit(e) {
         e.preventDefault();
         if (stop.stopName.trim()) {
             addStop({ ...stop, id: v4() });
-            setStop({ ...stop, stopName:"" });
+            setStop({ ...stop, stopName:"" , stopID:""});
         }
     }
 
