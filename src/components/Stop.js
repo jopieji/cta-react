@@ -7,7 +7,7 @@ import Axios from 'axios';
 function Stop({ stop, removeStop, stops }) {
 
     const red = {
-        north: {
+        redStops: {
                 'howard': [30173, 30174],
                 'jarvis': [30227, 30228],
                 'morse': [30020, 30021],
@@ -45,7 +45,8 @@ function Stop({ stop, removeStop, stops }) {
     }
 
     // gotta be a better way to set the stopID
-    stop.stopID = red['north'][stop.stopName.toLowerCase()][0];
+    stop.stopID = red['redStops'][stop.stopName.toLowerCase()][0];
+    stop.stopIDS = red['redStops'][stop.stopName.toLowerCase()][1];
 
     // function to remove a stop
     function handleRemoveClick() {
@@ -54,13 +55,20 @@ function Stop({ stop, removeStop, stops }) {
 
     // state for API calls
     const [ trainData, setTrainData ] = useState(null);
+    const [ southTrainData, setSouthTrainData ] = useState(null);
 
     // get train data function = test for now
     const getTrainUrl = (stop) => {
-        console.log(stop.stopID);
+        //console.log(`${stop.stopname} : ${stop.stopID}`);
         return `http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key=&stpid=${stop.stopID}&outputType=JSON`;
     }
 
+    const getSouthTrainUrl = (stop) => {
+        //console.log(`${stop.stopname} : ${stop.stopID}`);
+        return `http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key=&stpid=${stop.stopIDS}&outputType=JSON`;
+    }
+
+    // function to get northbound train data
     const getTrainData = (stop) => {
         const trainUrl = getTrainUrl(stop);
         Axios.get(trainUrl).then(
@@ -73,22 +81,24 @@ function Stop({ stop, removeStop, stops }) {
             });
     }
 
+    // current solution for getting southbound data; might just include both for now
+    const getSouthTrainData = (stop) => {
+        const southTrainUrl = getSouthTrainUrl(stop);
+        Axios.get(southTrainUrl).then(
+            (response) => {
+                console.log(response);
+                setSouthTrainData(response.data.ctatt.eta[0].arrT.substring(11));
+            }
+            ).catch(err => {
+                console.log(err);
+            });
+    }
+
     // useEFfect to update the time when component mounts;
-    // says i need to include getTrainData and stop?
     useEffect(() => {
         getTrainData(stop);
+        getSouthTrainData(stop);
     }, [stops, stop]);
-
-    // function to retreive parsed time data
-    // this breaks the whole app
-    /*
-    const parseTime = (res) => {
-        return res.data.ctatt.eta[0].arrT.substring(11);
-    }
-    */
-
-    // probably need to move the API logic into here; thus each element can have a unique URL
-    // get stopID; red['north'][stop.stopName.toLowerCase()][0]
 
     return (
         <ListItem style={{ display: "flex" }}>
@@ -102,7 +112,8 @@ function Stop({ stop, removeStop, stops }) {
                 variant="body2"
                 style={{marginLeft: 15}}
             >
-                Arrival: {trainData}
+                Northbound Arrival: {trainData} <br/>
+                Southbound Arrival: {southTrainData}
             </Typography>
             <IconButton onClick={handleRemoveClick}>
                 <CloseIcon />    
