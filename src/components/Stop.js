@@ -4,7 +4,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Axios from 'axios';
 
 
-function Stop({ stop, removeStop, stops }) {
+function Stop({ stop, removeStop }) {
 
     const red = {
         redStops: {
@@ -68,13 +68,37 @@ function Stop({ stop, removeStop, stops }) {
         return `http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key=&stpid=${stop.stopIDS}&outputType=JSON`;
     }
 
+    // function to calc mins
+    const calcMins = (responseJson) => {
+        //let hoursArrival = responseJson.data.ctatt.eta[0].arrT.substring(11, 13);
+
+        // minute digits of arrival time
+        let minsArrival = responseJson.data.ctatt.eta[0].arrT.substring(14, 16);
+        // minute digits of request time
+        let requestTimeMins = responseJson.data.ctatt.tmst.substring(14, 16);
+        console.log(minsArrival);
+        console.log(requestTimeMins);
+
+        let arrivalMinutes = minsArrival - requestTimeMins;
+
+        // if there is a change of hour between request and arrival, need to change the equation
+        if (Math.abs(arrivalMinutes) > 40) {
+            arrivalMinutes = minsArrival - requestTimeMins + 60
+        } /* implement if I can use conditional HTML rendering for 'minutes' after min number
+            else if (arrivalMinutes === 0) {
+            return "Approaching...";
+        } */
+        return arrivalMinutes;
+    }
+
     // function to get northbound train data
     const getTrainData = (stop) => {
         const trainUrl = getTrainUrl(stop);
         Axios.get(trainUrl).then(
             (response) => {
-                console.log(response);
-                setTrainData(response.data.ctatt.eta[0].arrT.substring(11));
+                //console.log(response);
+                const northMinutesToArrival = calcMins(response);
+                setTrainData(northMinutesToArrival);
             }
             ).catch(err => {
                 console.log(err);
@@ -86,8 +110,9 @@ function Stop({ stop, removeStop, stops }) {
         const southTrainUrl = getSouthTrainUrl(stop);
         Axios.get(southTrainUrl).then(
             (response) => {
-                console.log(response);
-                setSouthTrainData(response.data.ctatt.eta[0].arrT.substring(11));
+                //console.log(response);
+                const southMinutesToArrival = calcMins(response);
+                setSouthTrainData(southMinutesToArrival);
             }
             ).catch(err => {
                 console.log(err);
@@ -98,7 +123,9 @@ function Stop({ stop, removeStop, stops }) {
     useEffect(() => {
         getTrainData(stop);
         getSouthTrainData(stop);
-    }, [stops, stop]);
+        // had stops, stop in this dependency array
+        // chose to remove it
+    });
 
     return (
         <ListItem style={{ display: "flex" }}>
@@ -112,8 +139,8 @@ function Stop({ stop, removeStop, stops }) {
                 variant="body2"
                 style={{marginLeft: 15}}
             >
-                Northbound Arrival: {trainData} <br/>
-                Southbound Arrival: {southTrainData}
+                Northbound Arrival: {trainData} minutes <br/>
+                Southbound Arrival: {southTrainData} minutes
             </Typography>
             <IconButton onClick={handleRemoveClick}>
                 <CloseIcon />    
