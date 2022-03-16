@@ -20,6 +20,8 @@ The technologies I am using React, Nodejs, the CTA Train Tracker API, and maybe 
 
 I might try out some no-code tools to see what they are like. No-code tools would speed up development, but might also take away from my learning, so I am a little split on this decision.
 
+I am going to implement Express and Node.js to 1) gain expereince with these technologies and 2) to ensure I can hide my API key and clean up my code.
+
 ---
 ### Future Plans
 I might add the CTA Bus Tracker API once I get an MVP up and running. Again, this is subject to change, and I will probably begin working on a Native version before I expand the Web App too much. Making a Native version will help prepare me for my upcoming internship and will work around the notification issue I ran into using Django.

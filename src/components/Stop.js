@@ -98,6 +98,7 @@ function Stop({ stop, removeStop }) {
         return arrivalMinutes;
     }
 
+
     // function to get northbound train data
     const getTrainData = (stop) => {
         const trainUrl = getTrainUrl(stop);

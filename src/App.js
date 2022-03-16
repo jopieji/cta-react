@@ -21,12 +21,15 @@ const LOCAL_STORAGE_KEY = 'cta-stop-list-stops';
 function App() {
 
   const [ stops, setStops ] = useState([]);
+  const [ exp, setExp ] = useState([]);
 
   useEffect(() => {
     const storageStops = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
     if (storageStops) {
       setStops(storageStops);
     }
+    const r = callBackendAPI();
+    setExp(r);
   }, []);
 
   useEffect(() => {
@@ -41,6 +44,15 @@ function App() {
     setStops(stops.filter(stop => stop.id !== id));
   }
 
+  const callBackendAPI = async () => {
+    const response = await fetch('/express_backend');
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message);
+    }
+    return body;
+  };
 
 
   return (
@@ -51,6 +63,7 @@ function App() {
         stops={stops}
         removeStop={removeStop}
       />
+      <h1>{exp}</h1>
     </div>
   );
 }
