@@ -57,15 +57,22 @@ function Stop({ stop, removeStop }) {
     const [ trainData, setTrainData ] = useState(null);
     const [ southTrainData, setSouthTrainData ] = useState(null);
 
+    // might need to use a proper server to make requests
+    // can create my own endpoint to make calls to, which
+    // will take my stopIDs and then return the data I want
+    // this could also lead to a natural progression into
+    // including other lines
+    const api_key = "keyHere";
+
     // get train data function = test for now
     const getTrainUrl = (stop) => {
         //console.log(`${stop.stopname} : ${stop.stopID}`);
-        return `http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key=&stpid=${stop.stopID}&outputType=JSON`;
+        return `http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key=${api_key}&stpid=${stop.stopID}&outputType=JSON`;
     }
 
     const getSouthTrainUrl = (stop) => {
         //console.log(`${stop.stopname} : ${stop.stopID}`);
-        return `http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key=&stpid=${stop.stopIDS}&outputType=JSON`;
+        return `http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key=${api_key}&stpid=${stop.stopIDS}&outputType=JSON`;
     }
 
     // function to calc mins
