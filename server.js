@@ -1,5 +1,6 @@
 // require express; basically an import
 const express = require("express");
+const path = require("path");
 
 // require config file
 const config = require("./config.js");
@@ -9,6 +10,19 @@ require('dotenv');
 
 // our access to express
 const app = express();
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('/ping', function (req, res) {
+    return res.send('pong');
+});
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 // trying to troubleshoot disappearing page
 /*
@@ -30,10 +44,6 @@ const cors = require('cors');
 // fireship CORS video for context
 app.use(cors({ origin: 'http://localhost:3000'}));
 
-app.get('/', (req, res) => {
-    res.send({ trying: "my best" });
-});
-
 //show that server is up and running
 app.listen(config.PORT, config.HOST, () => {
     console.log(`App listening on http://${config.HOST}:${config.PORT}`);
@@ -54,14 +64,3 @@ app.get('/api', (req, res) => {
 app.get('/envTest', (req, res) => {
     res.json({ key: key });
 });
-
-/*
-    // express test
-    const expressTest = () => {
-        Axios.get('/express_backend').then(
-            (response) => {
-                console.log(response);
-            }
-        )
-    }
-*/
