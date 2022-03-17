@@ -53,16 +53,32 @@ function Stop({ stop, removeStop }) {
         removeStop(stop.id);
     }
 
+    // calling this function breaks the whole app. Why?
+
+    const axiosExpress = () => {
+        Axios.get('/express_backend')
+            .then(
+                (response) => {
+                setExpTest(response.data);
+                console.log(response.data);
+                })
+            .catch(err => {
+                console.log(err);
+        });
+    }
+
     // state for API calls
     const [ trainData, setTrainData ] = useState(null);
     const [ southTrainData, setSouthTrainData ] = useState(null);
+    const [ expTest, setExpTest ] = useState(null);
 
     // might need to use a proper server to make requests
     // can create my own endpoint to make calls to, which
     // will take my stopIDs and then return the data I want
     // this could also lead to a natural progression into
     // including other lines
-    const api_key = "keyHere";
+    // def going to make requests using Node and Express
+    const api_key = "key here";
 
     // get train data function = test for now
     const getTrainUrl = (stop) => {
@@ -83,9 +99,8 @@ function Stop({ stop, removeStop }) {
         let minsArrival = responseJson.data.ctatt.eta[0].arrT.substring(14, 16);
         // minute digits of request time
         let requestTimeMins = responseJson.data.ctatt.tmst.substring(14, 16);
-        console.log(minsArrival);
-        console.log(requestTimeMins);
 
+        // obvious calculation to find mins to arrrival
         let arrivalMinutes = minsArrival - requestTimeMins;
 
         // if there is a change of hour between request and arrival, need to change the equation
@@ -131,6 +146,7 @@ function Stop({ stop, removeStop }) {
     useEffect(() => {
         getTrainData(stop);
         getSouthTrainData(stop);
+        //axiosExpress();
         // had stops, stop in this dependency array
         // chose to remove it
     });
@@ -148,7 +164,8 @@ function Stop({ stop, removeStop }) {
                 style={{marginLeft: 15}}
             >
                 Northbound Arrival: {trainData} minutes <br/>
-                Southbound Arrival: {southTrainData} minutes
+                Southbound Arrival: {southTrainData} minutes <br/>
+                Express Test: {expTest} broken
             </Typography>
             <IconButton onClick={handleRemoveClick}>
                 <CloseIcon />    
