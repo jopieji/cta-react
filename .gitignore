@@ -26,4 +26,4 @@ yarn-error.log*
 .env
 
 # server for dev
-server.js
+# server.js
