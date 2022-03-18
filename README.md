@@ -16,11 +16,11 @@ If there is an issue with "Access-Control-Allow-Origin", you can install the COR
 
 ---
 ### Technology
-The technologies I am using React, Nodejs, the CTA Train Tracker API, and maybe MongoDB. I might just use local storage to prevent extra complication, but I will see what is most intuitive.
+The technologies I am using React, Nodejs, the CTA Train Tracker API, Express, and maybe MongoDB. I might just use local storage to prevent extra complication, but I will see what is most intuitive.
 
 I might try out some no-code tools to see what they are like. No-code tools would speed up development, but might also take away from my learning, so I am a little split on this decision.
 
-I am going to implement Express and Node.js to 1) gain expereince with these technologies and 2) to ensure I can hide my API key and clean up my code.
+I am going to implement Express and Node.js to 1) gain expereince with these technologies and 2) to ensure I can hide my API key and clean up my client code. If I could start over, I'd restructure my project, but its not a major issue; just breaking away from what seems to be convention.
 
 ---
 ### Future Plans
