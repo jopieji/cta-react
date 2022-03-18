@@ -13,6 +13,7 @@ require('dotenv');
 
 // our access to express
 const app = express();
+// BEG OF SHOWING PAGE ON SERVER
 //app.use(express.static(path.join(__dirname, 'build')));
 
 app.get('/ping', function (req, res) {
@@ -27,6 +28,7 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 */
+// END OF SHOWING PAGE ON SERVER
 
 // api key for TT API
 // not working quite properly yet, but its okay

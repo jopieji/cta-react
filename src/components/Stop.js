@@ -53,38 +53,42 @@ function Stop({ stop, removeStop }) {
         removeStop(stop.id);
     }
 
-    // EXPRESS TESTS FOR NOW
-    // calling this function breaks the whole app. Why?
-    const axiosExpress = () => {
-        Axios.get('/express_backend')
-            .then(
-                (response) => {
-                setExpTest(response.data);
-                console.log(response.data);
-                })
-            .catch(err => {
-                console.log(err);
-        });
-    }
-
+    // EXPRESS FOR NOW
     const getTrainDataFromExpress = (stopID) => {
         console.log(stopID);
         Axios.get(`/train/${stopID}`)
             .then(
                 (response) => {
-                    setTrainData(response.minsToArrival);
-                    console.log(response.minsToArrival);
-                })
+                    setRawTrainData(response);
+                }
+            )
+            .then(
+                () => {
+                    setTrainData(calcMins(rawTrainData));
+                }
+            )
             .catch(err => {
                 console.log(err);
         });
     }
-    
-
+    /*
+    // useless rn
+    const getMinsFromExpress = () => {
+        //console.log(rawTrainData);
+        if (rawTrainData != null) {
+            const mins = calcMins(rawTrainData);
+        }
+        //setTrainData(mins);
+    }
+    */
+   
     // state for API calls
     const [ trainData, setTrainData ] = useState(null);
     const [ southTrainData, setSouthTrainData ] = useState(null);
-    const [ expTest, setExpTest ] = useState(null);
+    // just want it working for 1 direction to start
+    const [ rawTrainData, setRawTrainData ] = useState(null);
+    const [ NTrainMins, setNTrainMins ] = useState(null);
+    const [ STrainMins, setSTrainMins ] = useState(null);
 
     // might need to use a proper server to make requests
     // can create my own endpoint to make calls to, which
@@ -107,12 +111,13 @@ function Stop({ stop, removeStop }) {
 
     // function to calc mins
     const calcMins = (responseJson) => {
+        console.log(responseJson);
         //let hoursArrival = responseJson.data.ctatt.eta[0].arrT.substring(11, 13);
 
         // minute digits of arrival time
-        let minsArrival = responseJson.data.ctatt.eta[0].arrT.substring(14, 16);
+        let minsArrival = responseJson.data.data.ctatt.eta[0].arrT.substring(14, 16);
         // minute digits of request time
-        let requestTimeMins = responseJson.data.ctatt.tmst.substring(14, 16);
+        let requestTimeMins = responseJson.data.data.ctatt.tmst.substring(14, 16);
 
         // obvious calculation to find mins to arrrival
         let arrivalMinutes = minsArrival - requestTimeMins;
@@ -134,7 +139,7 @@ function Stop({ stop, removeStop }) {
         Axios.get(trainUrl).then(
             (response) => {
                 //console.log(response);
-                axiosExpress();
+                //axiosExpress();
                 const northMinutesToArrival = calcMins(response);
                 setTrainData(northMinutesToArrival);
             }
@@ -158,14 +163,21 @@ function Stop({ stop, removeStop }) {
     }
 
     // useEffect to update the time when component mounts;
+    // need to check if it isMounted before updating state in useEffect()
     useEffect(() => {
+        let isMounted = true;
         //getTrainData(stop);
-        getTrainDataFromExpress(stop.stopID);
+        //getTrainDataFromExpress(stop.stopID);
         //getSouthTrainData(stop);
-        //axiosExpress();
+        getTrainDataFromExpress(stop.stopID);
+        if (isMounted) {
+            //setRawTrainData(trainJson);
+            //getMinsFromExpress(rawTrainData);
+        }
         // had stops, stop in this dependency array
         // chose to remove it
-    });
+        return () => { isMounted = false };
+    }, []);
 
     return (
         <ListItem style={{ display: "flex" }}>
@@ -181,7 +193,6 @@ function Stop({ stop, removeStop }) {
             >
                 Northbound Arrival: {trainData} minutes <br/>
                 Southbound Arrival: {southTrainData} minutes <br/>
-                Express Test: {expTest} broken
             </Typography>
             <IconButton onClick={handleRemoveClick}>
                 <CloseIcon />    
