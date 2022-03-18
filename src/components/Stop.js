@@ -34,7 +34,7 @@ function Stop({ stop, removeStop }) {
                 'roosevelt': [30269, 30270],
                 'cermak-chinatown': [30193, 30194],
                 'sox-35th': [30036, 30037],
-                '47th': [302387, 30238],
+                '47th': [30237, 30238],
                 'garfield': [30223, 30224],
                 '63rd': [30177, 30178],
                 '69th': [30191, 30192],
@@ -53,8 +53,8 @@ function Stop({ stop, removeStop }) {
         removeStop(stop.id);
     }
 
+    // EXPRESS TESTS FOR NOW
     // calling this function breaks the whole app. Why?
-
     const axiosExpress = () => {
         Axios.get('/express_backend')
             .then(
@@ -67,6 +67,20 @@ function Stop({ stop, removeStop }) {
         });
     }
 
+    const getTrainDataFromExpress = (stopID) => {
+        console.log(stopID);
+        Axios.get(`/train/${stopID}`)
+            .then(
+                (response) => {
+                    setTrainData(response.minsToArrival);
+                    console.log(response.minsToArrival);
+                })
+            .catch(err => {
+                console.log(err);
+        });
+    }
+    
+
     // state for API calls
     const [ trainData, setTrainData ] = useState(null);
     const [ southTrainData, setSouthTrainData ] = useState(null);
@@ -78,7 +92,7 @@ function Stop({ stop, removeStop }) {
     // this could also lead to a natural progression into
     // including other lines
     // def going to make requests using Node and Express
-    const api_key = "key here";
+    const api_key = "";
 
     // get train data function = test for now
     const getTrainUrl = (stop) => {
@@ -105,7 +119,7 @@ function Stop({ stop, removeStop }) {
 
         // if there is a change of hour between request and arrival, need to change the equation
         if (Math.abs(arrivalMinutes) > 40) {
-            arrivalMinutes = minsArrival - requestTimeMins + 60
+            arrivalMinutes = minsArrival - requestTimeMins + 60;
         } /* implement if I can use conditional HTML rendering for 'minutes' after min number
             else if (arrivalMinutes === 0) {
             return "Approaching...";
@@ -120,6 +134,7 @@ function Stop({ stop, removeStop }) {
         Axios.get(trainUrl).then(
             (response) => {
                 //console.log(response);
+                axiosExpress();
                 const northMinutesToArrival = calcMins(response);
                 setTrainData(northMinutesToArrival);
             }
@@ -142,10 +157,11 @@ function Stop({ stop, removeStop }) {
             });
     }
 
-    // useEFfect to update the time when component mounts;
+    // useEffect to update the time when component mounts;
     useEffect(() => {
-        getTrainData(stop);
-        getSouthTrainData(stop);
+        //getTrainData(stop);
+        getTrainDataFromExpress(stop.stopID);
+        //getSouthTrainData(stop);
         //axiosExpress();
         // had stops, stop in this dependency array
         // chose to remove it
