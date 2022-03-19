@@ -53,6 +53,37 @@ function Stop({ stop, removeStop }) {
         removeStop(stop.id);
     }
 
+    /*
+    // useless rn
+    const getMinsFromExpress = () => {
+        //console.log(rawTrainData);
+        if (rawTrainData != null) {
+            const mins = calcMins(rawTrainData);
+        }
+        //setTrainData(mins);
+    }
+    */
+
+    // state for API calls
+    // using these to store minutes
+    const [ trainData, setTrainData ] = useState(null);
+    const [ southTrainData, setSouthTrainData ] = useState(null);
+    // this seems redundant; can just use local variables for now
+    // might want to access the other aspects of the data for other
+    // calculations, such as last request time
+    const [ rawTrainData, setRawTrainData ] = useState(null);
+    const [ rawSouthData, setRawSouthData ] = useState(null);
+    // might want to store minutes separately?
+    //const [ NTrainMins, setNTrainMins ] = useState(null);
+    //const [ STrainMins, setSTrainMins ] = useState(null);
+
+    // might need to use a proper server to make requests
+    // can create my own endpoint to make calls to, which
+    // will take my stopIDs and then return the data I want
+    // this could also lead to a natural progression into
+    // including other lines
+    // def going to make requests using Node and Express
+
     // EXPRESS FOR NOW
     const getTrainDataFromExpress = (stopID) => {
         console.log(stopID);
@@ -71,42 +102,24 @@ function Stop({ stop, removeStop }) {
                 console.log(err);
         });
     }
-    /*
-    // useless rn
-    const getMinsFromExpress = () => {
-        //console.log(rawTrainData);
-        if (rawTrainData != null) {
-            const mins = calcMins(rawTrainData);
-        }
-        //setTrainData(mins);
-    }
-    */
-   
-    // state for API calls
-    const [ trainData, setTrainData ] = useState(null);
-    const [ southTrainData, setSouthTrainData ] = useState(null);
-    // just want it working for 1 direction to start
-    const [ rawTrainData, setRawTrainData ] = useState(null);
-    const [ NTrainMins, setNTrainMins ] = useState(null);
-    const [ STrainMins, setSTrainMins ] = useState(null);
 
-    // might need to use a proper server to make requests
-    // can create my own endpoint to make calls to, which
-    // will take my stopIDs and then return the data I want
-    // this could also lead to a natural progression into
-    // including other lines
-    // def going to make requests using Node and Express
-    const api_key = "";
-
-    // get train data function = test for now
-    const getTrainUrl = (stop) => {
-        //console.log(`${stop.stopname} : ${stop.stopID}`);
-        return `http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key=${api_key}&stpid=${stop.stopID}&outputType=JSON`;
-    }
-
-    const getSouthTrainUrl = (stop) => {
-        //console.log(`${stop.stopname} : ${stop.stopID}`);
-        return `http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key=${api_key}&stpid=${stop.stopIDS}&outputType=JSON`;
+    // easier to do south data in separate function
+    const getSouthTrainDataFromExpress = (stopIDS) => {
+        console.log(stopIDS);
+        Axios.get(`/train/${stopIDS}`)
+            .then(
+                (response) => {
+                    setRawSouthData(response);
+                }
+            )
+            .then(
+                () => {
+                    setSouthTrainData(calcMins(rawSouthData));
+                }
+            )
+            .catch(err => {
+                console.log(err);
+        });
     }
 
     // function to calc mins
@@ -132,7 +145,7 @@ function Stop({ stop, removeStop }) {
         return arrivalMinutes;
     }
 
-
+    /*
     // function to get northbound train data
     const getTrainData = (stop) => {
         const trainUrl = getTrainUrl(stop);
@@ -161,22 +174,23 @@ function Stop({ stop, removeStop }) {
                 console.log(err);
             });
     }
+    */
 
     // useEffect to update the time when component mounts;
     // need to check if it isMounted before updating state in useEffect()
     useEffect(() => {
         let isMounted = true;
-        //getTrainData(stop);
-        //getTrainDataFromExpress(stop.stopID);
-        //getSouthTrainData(stop);
         getTrainDataFromExpress(stop.stopID);
+        getSouthTrainDataFromExpress(stop.stopIDS);
+        // this is to ensure we don't set the data to undefined; might not need
+        // with the order of operations in getTrainDataFromExpress
         if (isMounted) {
             //setRawTrainData(trainJson);
             //getMinsFromExpress(rawTrainData);
         }
-        // had stops, stop in this dependency array
-        // chose to remove it
         return () => { isMounted = false };
+       // had stops, stop in this dependency array
+        // chose to remove it
     }, []);
 
     return (
