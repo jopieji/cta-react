@@ -68,6 +68,9 @@ function Stop({ stop, removeStop }) {
     // using these to store minutes
     const [ trainData, setTrainData ] = useState(null);
     const [ southTrainData, setSouthTrainData ] = useState(null);
+    // storing last request time
+    // maybe set initial state to Date.now()
+    const [ lastRequest, setLastRequest ] = useState(null);
     // this seems redundant; can just use local variables for now
     // might want to access the other aspects of the data for other
     // calculations, such as last request time
@@ -95,7 +98,11 @@ function Stop({ stop, removeStop }) {
             )
             .then(
                 () => {
+                    // set mins to arrival
                     setTrainData(calcMins(rawTrainData));
+                    // set last request time
+                    setLastRequest(getLastRequestTime(rawTrainData));
+                    console.log(lastRequest);
                 }
             )
             .catch(err => {
@@ -114,7 +121,11 @@ function Stop({ stop, removeStop }) {
             )
             .then(
                 () => {
+                    // set mins to arrival
                     setSouthTrainData(calcMins(rawSouthData));
+                    // set last request time
+                    setLastRequest(getLastRequestTime(rawSouthData));
+                    //console.log(lastRequest);
                 }
             )
             .catch(err => {
@@ -143,6 +154,16 @@ function Stop({ stop, removeStop }) {
             return "Approaching...";
         } */
         return arrivalMinutes;
+    }
+
+    const getLastRequestTime = (jsonData) => {
+        const base = jsonData.data.data.ctatt.tmst.substring(11);
+        if (base.substring(0, 2) > 12) {
+            const firstTwo = base.substring(0, 2);
+            const newTime = firstTwo.concat(base.substring(2));
+            return newTime;
+        }
+        return base;
     }
 
     /*
