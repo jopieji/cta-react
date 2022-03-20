@@ -102,7 +102,7 @@ function Stop({ stop, removeStop }) {
                     setTrainData(calcMins(rawTrainData));
                     // set last request time
                     setLastRequest(getLastRequestTime(rawTrainData));
-                    console.log(lastRequest);
+                    //console.log(lastRequest);
                 }
             )
             .catch(err => {
@@ -125,7 +125,7 @@ function Stop({ stop, removeStop }) {
                     setSouthTrainData(calcMins(rawSouthData));
                     // set last request time
                     setLastRequest(getLastRequestTime(rawSouthData));
-                    //console.log(lastRequest);
+                    console.log(lastRequest);
                 }
             )
             .catch(err => {
@@ -159,43 +159,12 @@ function Stop({ stop, removeStop }) {
     const getLastRequestTime = (jsonData) => {
         const base = jsonData.data.data.ctatt.tmst.substring(11);
         if (base.substring(0, 2) > 12) {
-            const firstTwo = base.substring(0, 2);
+            const firstTwo = base.substring(0, 2) - 12;
             const newTime = firstTwo.concat(base.substring(2));
             return newTime;
         }
         return base;
     }
-
-    /*
-    // function to get northbound train data
-    const getTrainData = (stop) => {
-        const trainUrl = getTrainUrl(stop);
-        Axios.get(trainUrl).then(
-            (response) => {
-                //console.log(response);
-                //axiosExpress();
-                const northMinutesToArrival = calcMins(response);
-                setTrainData(northMinutesToArrival);
-            }
-            ).catch(err => {
-                console.log(err);
-            });
-    }
-
-    // current solution for getting southbound data; might just include both for now
-    const getSouthTrainData = (stop) => {
-        const southTrainUrl = getSouthTrainUrl(stop);
-        Axios.get(southTrainUrl).then(
-            (response) => {
-                //console.log(response);
-                const southMinutesToArrival = calcMins(response);
-                setSouthTrainData(southMinutesToArrival);
-            }
-            ).catch(err => {
-                console.log(err);
-            });
-    }
-    */
 
     // useEffect to update the time when component mounts;
     // need to check if it isMounted before updating state in useEffect()
