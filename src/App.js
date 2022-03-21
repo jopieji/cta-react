@@ -47,7 +47,7 @@ function App() {
     if (hours > 12) {
       hours = hours - 12;
     }
-    let time = hours + ":" + d.getMinutes() + ":" + d.getSeconds();
+    let time = hours + ":" + d.getMinutes();
     setTime(time);
   }
 
@@ -59,18 +59,19 @@ function App() {
         variant="h2">
           CTA Train Tracker
       </Typography>
+      <Typography
+        style={{ padding: 5, color: "red", justifyContent: "left"}}
+        variant="h5"
+      >
+        Last Request: {time}
+      </Typography>
       <StopForm addStop={addStop} />
       <StopList
         stops={stops}
         removeStop={removeStop}
         setTimeState={setTimeState}
       />
-      <Typography
-        style={{ padding: 5, color: "red"}}
-        variant="h4"
-      >
-        {time}
-      </Typography>
+      
     </div>
   );
 }

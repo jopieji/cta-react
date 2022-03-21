@@ -77,7 +77,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
 
     // function to calc mins
     const calcMins = (responseJson) => {
-        console.log(responseJson);
+        //console.log(responseJson);
         //let hoursArrival = responseJson.data.ctatt.eta[0].arrT.substring(11, 13);
 
         // minute digits of arrival time
@@ -124,6 +124,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
             Axios.get(`/train/${stopIDS}`)
                 .then(
                     (response) => {
+                        console.log(response);
                         // set mins to arrival
                         setSouthTrainData(calcMins(response));
                         // set last request time
