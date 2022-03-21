@@ -20,6 +20,7 @@ const LOCAL_STORAGE_KEY = 'cta-stop-list-stops';
 function App() {
 
   const [ stops, setStops ] = useState([]);
+  const [ time, setTime ] = useState([]);
 
   useEffect(() => {
     const storageStops = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
@@ -32,20 +33,22 @@ function App() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(stops));
   }, [stops]);
 
-  /*
-  const expressTest = () => {
-    fetch('/envTest')
-      .then(res => res.json())
-      .then(data => console.log(data));
-  }
-  */
-
   function addStop(stop) {
     setStops([stop, ...stops]);
   }
 
   function removeStop(id) {
     setStops(stops.filter(stop => stop.id !== id));
+  }
+
+  function setTimeState() {
+    let d = new Date();
+    let hours = d.getHours();
+    if (hours > 12) {
+      hours = hours - 12;
+    }
+    let time = hours + ":" + d.getMinutes() + ":" + d.getSeconds();
+    setTime(time);
   }
 
 
@@ -60,7 +63,14 @@ function App() {
       <StopList
         stops={stops}
         removeStop={removeStop}
+        setTimeState={setTimeState}
       />
+      <Typography
+        style={{ padding: 5, color: "red"}}
+        variant="h4"
+      >
+        {time}
+      </Typography>
     </div>
   );
 }

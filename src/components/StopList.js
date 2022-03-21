@@ -6,7 +6,7 @@ import Stop from "./Stop";
 // material ui
 import { List } from "@material-ui/core";
 
-function StopList({ stops, removeStop }) {
+function StopList({ stops, removeStop, setTimeState }) {
 
     return (
         <List>
@@ -16,6 +16,7 @@ function StopList({ stops, removeStop }) {
                     stop={stop}
                     removeStop={removeStop}
                     stops={stops}
+                    setTimeState={setTimeState}
                 />
             ))}
         </List>

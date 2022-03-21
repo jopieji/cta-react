@@ -4,7 +4,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Axios from 'axios';
 
 
-function Stop({ stop, removeStop }) {
+function Stop({ stop, stops, removeStop, setTimeState }) {
 
     const red = {
         redStops: {
@@ -70,68 +70,10 @@ function Stop({ stop, removeStop }) {
     const [ southTrainData, setSouthTrainData ] = useState(null);
     // storing last request time
     // maybe set initial state to Date.now()
-    const [ lastRequest, setLastRequest ] = useState(null);
-    // this seems redundant; can just use local variables for now
-    // might want to access the other aspects of the data for other
-    // calculations, such as last request time
-    const [ rawTrainData, setRawTrainData ] = useState(null);
-    const [ rawSouthData, setRawSouthData ] = useState(null);
-    // might want to store minutes separately?
-    //const [ NTrainMins, setNTrainMins ] = useState(null);
-    //const [ STrainMins, setSTrainMins ] = useState(null);
-
-    // might need to use a proper server to make requests
-    // can create my own endpoint to make calls to, which
-    // will take my stopIDs and then return the data I want
-    // this could also lead to a natural progression into
-    // including other lines
-    // def going to make requests using Node and Express
 
     // EXPRESS FOR NOW
-    const getTrainDataFromExpress = (stopID) => {
-        console.log(stopID);
-        Axios.get(`/train/${stopID}`)
-            .then(
-                (response) => {
-                    setRawTrainData(response);
-                }
-            )
-            .then(
-                () => {
-                    // set mins to arrival
-                    setTrainData(calcMins(rawTrainData));
-                    // set last request time
-                    setLastRequest(getLastRequestTime(rawTrainData));
-                    //console.log(lastRequest);
-                }
-            )
-            .catch(err => {
-                console.log(err);
-        });
-    }
+    // moved into useEffect
 
-    // easier to do south data in separate function
-    const getSouthTrainDataFromExpress = (stopIDS) => {
-        console.log(stopIDS);
-        Axios.get(`/train/${stopIDS}`)
-            .then(
-                (response) => {
-                    setRawSouthData(response);
-                }
-            )
-            .then(
-                () => {
-                    // set mins to arrival
-                    setSouthTrainData(calcMins(rawSouthData));
-                    // set last request time
-                    setLastRequest(getLastRequestTime(rawSouthData));
-                    console.log(lastRequest);
-                }
-            )
-            .catch(err => {
-                console.log(err);
-        });
-    }
 
     // function to calc mins
     const calcMins = (responseJson) => {
@@ -156,32 +98,52 @@ function Stop({ stop, removeStop }) {
         return arrivalMinutes;
     }
 
-    const getLastRequestTime = (jsonData) => {
-        const base = jsonData.data.data.ctatt.tmst.substring(11);
-        if (base.substring(0, 2) > 12) {
-            const firstTwo = base.substring(0, 2) - 12;
-            const newTime = firstTwo.concat(base.substring(2));
-            return newTime;
-        }
-        return base;
-    }
+
 
     // useEffect to update the time when component mounts;
     // need to check if it isMounted before updating state in useEffect()
     useEffect(() => {
-        let isMounted = true;
+        
+        const getTrainDataFromExpress = (stopID) => {
+            //console.log(stopID);
+            Axios.get(`/train/${stopID}`)
+                .then(
+                    (response) => {
+                        // set mins to arrival
+                        setTrainData(calcMins(response));
+                    }
+                )
+                .catch(err => {
+                    console.log(err);
+            });
+        }
+
+        // easier to do south data in separate function
+        const getSouthTrainDataFromExpress = (stopIDS) => {
+            //console.log(stopIDS);
+            Axios.get(`/train/${stopIDS}`)
+                .then(
+                    (response) => {
+                        // set mins to arrival
+                        setSouthTrainData(calcMins(response));
+                        // set last request time
+                        //setLastRequest(getLastRequestTime(rawSouthData));
+                        //console.log(lastRequest);
+                        //return calcMins(rawSouthData);
+                    }
+                )
+                .catch(err => {
+                    console.log(err);
+            });
+        }
+
+        // might need to define functions within the useEffect
+
         getTrainDataFromExpress(stop.stopID);
         getSouthTrainDataFromExpress(stop.stopIDS);
-        // this is to ensure we don't set the data to undefined; might not need
-        // with the order of operations in getTrainDataFromExpress
-        if (isMounted) {
-            //setRawTrainData(trainJson);
-            //getMinsFromExpress(rawTrainData);
-        }
-        return () => { isMounted = false };
-       // had stops, stop in this dependency array
-        // chose to remove it
-    }, []);
+        setTimeState();
+        
+    }, [stops]);
 
     return (
         <ListItem style={{ display: "flex" }}>
