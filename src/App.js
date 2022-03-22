@@ -51,6 +51,10 @@ function App() {
     setTime(time);
   }
 
+  useEffect(() => {
+    Notification.requestPermission();
+  });
+
 
   return (
     <div className="App">
@@ -68,6 +72,7 @@ function App() {
       <StopForm addStop={addStop} />
       <StopList
         stops={stops}
+        notif={Notification}
         removeStop={removeStop}
         setTimeState={setTimeState}
       />

@@ -1,6 +1,5 @@
 // require express; basically an import
 const express = require("express");
-const path = require("path");
 const axios = require('axios');
 
 // require config file

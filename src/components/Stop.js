@@ -98,6 +98,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
         return arrivalMinutes;
     }
 
+    // try and see if notifications can be passed down; set body to train coming
 
 
     // useEffect to update the time when component mounts;
@@ -143,6 +144,12 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
         getTrainDataFromExpress(stop.stopID);
         getSouthTrainDataFromExpress(stop.stopIDS);
         setTimeState();
+
+        if (!("Notification" in window)) {
+            console.log("Notifications not available");
+        } else {
+            console.log(`Notifications enabled for ${stop.stopName}`);
+        }
         
     }, [stops]);
 
