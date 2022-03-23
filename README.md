@@ -12,7 +12,7 @@ Right now, this app is not deployed. Once I get an MVP up and running, I will de
 
 If you want to use it in its current form, you can sign up for the CTA Train Tracker API and get a developer key pretty easily. I was able to get mine in about a day, so it won't be too much of a hassle. Just make sure you put your key in the URL on the Stop.js file, and everything should work fine! 
 
-If there is an issue with "Access-Control-Allow-Origin", you can install the CORS browser extension for Chrome or Edge for the app to work. 
+You need to make a config.js file that exports your API key, host for the express server ("localhost"), and port for the express server.
 
 ---
 ### Technology
