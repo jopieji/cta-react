@@ -1,33 +1,38 @@
-import React, { useEffect } from 'react';
+import { NotificationsOutlined } from '@material-ui/icons';
+import React, { useEffect, useState } from 'react';
 
-function NotificationSys({ }) {
+function NotificationSys() {
+
+    const [ s, setS ] = useState(false);
+
+    const buttonTrigger = (s) => {
+        s ? setS(false) : setS(true);
+    }
 
     const showNotification = () => {
-        const notif = new Notification({
-            body: "Hey its working!",
+        const notif = new Notification("New message from jopie:", {
+            body: "This is working!"
         });
-
-        console.log(notif);
     }
 
-    
-    /*
-    logic to check if notifications enabled
-    if (!("Notification" in window)) {
-        console.log("Notifications not available");
-    } else {
-        console.log(`Notifications enabled for ${stop.stopName}`);
+    if (Notification.permission === "granted") {
+        showNotification();
+    } else if (Notification.permission !== "denied") {
+        Notification.requestPermission().then(permission => {
+            console.log(permission);
+        });
     }
-    */
+
+    console.log(Notification.permission);
 
     useEffect(() => {
-        Notification.requestPermission();
-    });
+        showNotification();
+    }, [s]);
 
 
     return (
         <div>
-            <button onClick={showNotification}>Click to show</button>
+            <button onClick={buttonTrigger}>Click to test</button>
         </div>
     )
 }

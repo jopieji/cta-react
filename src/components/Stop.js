@@ -142,13 +142,11 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
 
         // might need to define functions within the useEffect
         async function setData() {
-            const res = await getTrainDataFromExpress(stop.stopID);
-            const res2 = await getSouthTrainDataFromExpress(stop.stopIDS);
+            await getTrainDataFromExpress(stop.stopID);
+            await getSouthTrainDataFromExpress(stop.stopIDS);
         }
         
         setData();
-        //getTrainDataFromExpress(stop.stopID);
-        //getSouthTrainDataFromExpress(stop.stopIDS);
         setTimeState();
         
     }, [stops]);
