@@ -42,12 +42,14 @@ function App() {
   }
 
   function setTimeState() {
+    let tag = " AM";
     let d = new Date();
     let hours = d.getHours();
     if (hours > 12) {
       hours = hours - 12;
+      tag = " PM";
     }
-    let time = hours + ":" + d.getMinutes();
+    let time = hours + ":" + d.getMinutes() + tag;
     setTime(time);
   }
 

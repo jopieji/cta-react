@@ -145,11 +145,14 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
         getSouthTrainDataFromExpress(stop.stopIDS);
         setTimeState();
 
+        /*
+        logic to check if notifications enabled
         if (!("Notification" in window)) {
             console.log("Notifications not available");
         } else {
             console.log(`Notifications enabled for ${stop.stopName}`);
         }
+        */
         
     }, [stops]);
 
