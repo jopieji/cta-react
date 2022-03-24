@@ -47,7 +47,11 @@ function App() {
       hours = hours - 12;
       tag = " PM";
     }
-    let time = hours + ":" + d.getMinutes() + tag;
+    let mins = d.getMinutes();
+    if (mins < 10) {
+      mins = "0" + mins;
+    }
+    let time = hours + ":" + mins + tag;
     setTime(time);
   }
 
