@@ -76,6 +76,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
 
 
     // function to calc mins
+    // no clue why its randomly negative
     const calcMins = (responseJson) => {
         //console.log(responseJson);
         //let hoursArrival = responseJson.data.ctatt.eta[0].arrT.substring(11, 13);
@@ -140,19 +141,13 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
         }
 
         // might need to define functions within the useEffect
-
-        getTrainDataFromExpress(stop.stopID);
-        getSouthTrainDataFromExpress(stop.stopIDS);
-        setTimeState();
-
-        /*
-        logic to check if notifications enabled
-        if (!("Notification" in window)) {
-            console.log("Notifications not available");
-        } else {
-            console.log(`Notifications enabled for ${stop.stopName}`);
+        async function setData() {
+            await getTrainDataFromExpress(stop.stopID);
+            await getSouthTrainDataFromExpress(stop.stopIDS);
         }
-        */
+        
+        setData();
+        setTimeState();
         
     }, [stops]);
 

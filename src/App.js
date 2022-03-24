@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 
 import StopList from './components/StopList';
 import StopForm from './components/StopForm';
+import NotificationSys from "./components/NotificationSys";
 
 // probably want components for:
 // the List of Stops: StopList
@@ -53,10 +54,6 @@ function App() {
     setTime(time);
   }
 
-  useEffect(() => {
-    Notification.requestPermission();
-  });
-
 
   return (
     <div className="App">
@@ -74,10 +71,10 @@ function App() {
       <StopForm addStop={addStop} />
       <StopList
         stops={stops}
-        notif={Notification}
         removeStop={removeStop}
         setTimeState={setTimeState}
       />
+      <NotificationSys/>
       
     </div>
   );
