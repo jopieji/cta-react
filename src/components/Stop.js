@@ -83,7 +83,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
         console.log("North stop doesn't exist");
         // remove stop if North doesn't exist because every stop
         // has at least 1 location
-        //emoveStop(stop.id);
+        //removeStop(stop.id);
     }
 
     try {
@@ -245,6 +245,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
         <ListItem style={{ display: "flex" }}>
             <Typography
                 variant="body1"
+                style={{ color: stop.stopLine }}
             >
                 {stop.stopName}
             </Typography>
