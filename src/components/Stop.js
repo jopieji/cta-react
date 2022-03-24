@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { ListItem, Typography, IconButton } from "@material-ui/core";
 import CloseIcon from '@material-ui/icons/Close';
 import Axios from 'axios';
+import { ContactSupportOutlined } from '@material-ui/icons';
 
 
 function Stop({ stop, stops, removeStop, setTimeState }) {
 
-    const red = {
+    const trainStops = {
         redStops: {
                 'howard': [30173, 30174],
                 'jarvis': [30227, 30228],
@@ -45,38 +46,32 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
     }
 
     // gotta be a better way to set the stopID
-    stop.stopID = red['redStops'][stop.stopName.toLowerCase()][0];
-    stop.stopIDS = red['redStops'][stop.stopName.toLowerCase()][1];
+    try {
+        stop.stopID = trainStops['redStops'][stop.stopName.toLowerCase()][0];
+    } catch {
+        console.log("North top doesn't exist");
+    }
+    
+    try {
+        stop.stopIDS = trainStops['redStops'][stop.stopName.toLowerCase()][1];
+    } catch {
+        console.log("South stop doesn't exist");
+        removeStop(stop.id);
+    }
+    
+
+
+    // state for API calls
+    // using these to store minutes
+    const [ trainData, setTrainData ] = useState(null);
+    const [ southTrainData, setSouthTrainData ] = useState(null);
 
     // function to remove a stop
     function handleRemoveClick() {
         removeStop(stop.id);
     }
 
-    /*
-    // useless rn
-    const getMinsFromExpress = () => {
-        //console.log(rawTrainData);
-        if (rawTrainData != null) {
-            const mins = calcMins(rawTrainData);
-        }
-        //setTrainData(mins);
-    }
-    */
-
-    // state for API calls
-    // using these to store minutes
-    const [ trainData, setTrainData ] = useState(null);
-    const [ southTrainData, setSouthTrainData ] = useState(null);
-    // storing last request time
-    // maybe set initial state to Date.now()
-
-    // EXPRESS FOR NOW
-    // moved into useEffect
-
-
     // function to calc mins
-    // no clue why its randomly negative
     const calcMins = (responseJson) => {
         //console.log(responseJson);
         //let hoursArrival = responseJson.data.ctatt.eta[0].arrT.substring(11, 13);
