@@ -6,15 +6,6 @@ import Typography from "@material-ui/core/Typography";
 
 import StopList from './components/StopList';
 import StopForm from './components/StopForm';
-import NotificationSys from "./components/NotificationSys";
-
-// probably want components for:
-// the List of Stops: StopList
-// the individual Stops: Stop
-// maybe for the time
-
-// going to need views for adding adding
-// maybe one for each line
 
 const LOCAL_STORAGE_KEY = 'cta-stop-list-stops';
 
@@ -22,6 +13,7 @@ function App() {
 
   const [ stops, setStops ] = useState([]);
   const [ time, setTime ] = useState([]);
+  const [ line, setLine ] = useState("red");
 
   useEffect(() => {
     const storageStops = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
@@ -40,6 +32,11 @@ function App() {
 
   function removeStop(id) {
     setStops(stops.filter(stop => stop.id !== id));
+  }
+
+  function updateLine(val) {
+    setLine(val);
+    console.log(line);
   }
 
   function setTimeState() {
@@ -68,14 +65,16 @@ function App() {
       >
         Last Request: {time}
       </Typography>
-      <StopForm addStop={addStop} />
+      <StopForm 
+        addStop={addStop}
+        updateLine={updateLine}
+      />
       <StopList
         stops={stops}
+        line={line}
         removeStop={removeStop}
         setTimeState={setTimeState}
       />
-      <NotificationSys/>
-      
     </div>
   );
 }

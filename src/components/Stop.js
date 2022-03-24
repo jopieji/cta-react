@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { ListItem, Typography, IconButton } from "@material-ui/core";
 import CloseIcon from '@material-ui/icons/Close';
 import Axios from 'axios';
-import { ContactSupportOutlined } from '@material-ui/icons';
 
 
-function Stop({ stop, stops, removeStop, setTimeState }) {
+function Stop({ stop, stops, removeStop, setTimeState, line }) {
 
     const trainStops = {
         redStops: {
@@ -42,22 +41,76 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
                 '79th': [30046, 30047],
                 '87th': [30276, 30275],
                 '95th/dan ryan': [30088, 30089]
+        },
+
+        brownStops: {
+            'kimball': [30249, 30250],
+            'kedzie': [30225, 30226],
+            'francisco': [30167, 30168],
+            'rockwell': [30195, 30196],
+            'western': [30283, 30284],
+            'damen': [30018, 30019],
+            'montrose': [30287, 30288],
+            'irving park': [30281, 30282],
+            'addison': [30277, 30278],
+            'paulina': [30253, 30254],
+            'southport': [30070, 30071],
+            'belmont': [30257, 30258],
+            'wellington': [30231, 30232],
+            'diversey': [30103, 30104],
+            'fullerton': [30235, 30236],
+            'armitage': [30127, 20128],
+            'sedgwick': [30155, 30156],
+            'chicago': [30137, 30138],
+            'merchandise mart': [30090, 30091],
+            'clark/lake': [40380, 'S'],
+            'state/lake': [30051, 'S'],
+            'randolph/wabash': [0, 'S'],
+            'madison/wabash': [0, 'S'],
+            'adams/wabash': [30131, 'S'],
+            'harold washington library': [30165, 'S'],
+            'lasalle/van buren': [30030, 'S'],
+            'quincy': [30008, 'S'],
+            'washington/wabash': [30383, 'S'],
+            'washington/wells': [30142, 'S']
         }
     }
 
-    // gotta be a better way to set the stopID
-    try {
-        stop.stopID = trainStops['redStops'][stop.stopName.toLowerCase()][0];
-    } catch {
-        console.log("North top doesn't exist");
+    // try and implement multiple lines
+    if (line === "red") {
+        // basic exception handling for invalid inputs
+        try {
+            stop.stopID = trainStops['redStops'][stop.stopName.toLowerCase()][0];
+        } catch {
+            console.log("North stop doesn't exist");
+            // remove stop if North doesn't exist because every stop
+            // has at least 1 location
+            removeStop(stop.id);
+        }
+        
+        try {
+            stop.stopIDS = trainStops['redStops'][stop.stopName.toLowerCase()][1];
+        } catch {
+            console.log("South stop doesn't exist");
+        }  
+    } else if (line === "brown") {
+        // basic exception handling for invalid inputs
+        try {
+            stop.stopID = trainStops['brownStops'][stop.stopName.toLowerCase()][0];
+        } catch {
+            console.log("North stop doesn't exist");
+            // remove stop if North doesn't exist because every stop
+            // has at least 1 location
+            removeStop(stop.id);
+        }
+        
+        try {
+            stop.stopIDS = trainStops['brownStops'][stop.stopName.toLowerCase()][1];
+        } catch {
+            console.log("South stop doesn't exist");
+        }
     }
     
-    try {
-        stop.stopIDS = trainStops['redStops'][stop.stopName.toLowerCase()][1];
-    } catch {
-        console.log("South stop doesn't exist");
-        removeStop(stop.id);
-    }
     
 
 
@@ -107,7 +160,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
                 .then(
                     (response) => {
                         // set mins to arrival
-                        setTrainData(calcMins(response));
+                        setTrainData(calcMins(response) + " minutes");
                     }
                 )
                 .catch(err => {
@@ -121,17 +174,13 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
             Axios.get(`/train/${stopIDS}`)
                 .then(
                     (response) => {
-                        console.log(response);
                         // set mins to arrival
-                        setSouthTrainData(calcMins(response));
-                        // set last request time
-                        //setLastRequest(getLastRequestTime(rawSouthData));
-                        //console.log(lastRequest);
-                        //return calcMins(rawSouthData);
+                        setSouthTrainData(calcMins(response) + " minutes");
                     }
                 )
                 .catch(err => {
                     console.log(err);
+                    setSouthTrainData("N/A");
             });
         }
 
@@ -158,8 +207,8 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
                 variant="body2"
                 style={{marginLeft: 15}}
             >
-                Northbound Arrival: {trainData} minutes <br/>
-                Southbound Arrival: {southTrainData} minutes <br/>
+                Northbound Arrival: {trainData}<br/>
+                Southbound Arrival: {southTrainData}<br/>
             </Typography>
             <IconButton onClick={handleRemoveClick}>
                 <CloseIcon />    

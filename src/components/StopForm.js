@@ -4,9 +4,10 @@
 import React, { useState } from 'react';
 import { v4 } from "uuid";
 import { Button, TextField } from "@material-ui/core";
+import { Form } from "react-bootstrap";
 
 
-function StopForm({ addStop }) {
+function StopForm({ addStop, updateLine }) {
 
     const [stop, setStop] = useState({
         id: "",
@@ -15,8 +16,6 @@ function StopForm({ addStop }) {
     });
 
     function handleStopInputChange(e) {
-        // need to add stop id from cta tt api list on django site
-        // maybe add this to get stopID's on stops?
         setStop( {...stop, stopName: e.target.value});
     }
 
@@ -39,7 +38,19 @@ function StopForm({ addStop }) {
             />
             <Button type="submit"
                 style={{color: "#e60000"}}
-            >Submit</Button>    
+            >Submit</Button>
+            <Form.Control
+                as="select"
+                custom
+                onChange={ (e) => {
+                    updateLine(e.target.value);
+                }}
+                style={{ color: "#1c87c9", border: "0px", padding: "7px" }}
+            >
+                <option value="red">Red</option>
+                <option value="brown">Brown</option> 
+            </Form.Control>
+   
         </form>
     );
 }
