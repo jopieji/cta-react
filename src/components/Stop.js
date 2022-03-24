@@ -6,8 +6,11 @@ import Axios from 'axios';
 
 function Stop({ stop, stops, removeStop, setTimeState, line }) {
 
+    // set line
+    stop.stopLine = line;
+
     const trainStops = {
-        redStops: {
+        red: {
                 'howard': [30173, 30174],
                 'jarvis': [30227, 30228],
                 'morse': [30020, 30021],
@@ -43,7 +46,7 @@ function Stop({ stop, stops, removeStop, setTimeState, line }) {
                 '95th/dan ryan': [30088, 30089]
         },
 
-        brownStops: {
+        brown: {
             'kimball': [30249, 30250],
             'kedzie': [30225, 30226],
             'francisco': [30167, 30168],
@@ -76,6 +79,22 @@ function Stop({ stop, stops, removeStop, setTimeState, line }) {
         }
     }
 
+    try {
+        stop.stopID = trainStops[stop.stopLine][stop.stopName.toLowerCase()][0];
+    } catch {
+        console.log("North stop doesn't exist");
+        // remove stop if North doesn't exist because every stop
+        // has at least 1 location
+        //emoveStop(stop.id);
+    }
+
+    try {
+        stop.stopIDS = trainStops[stop.stopLine][stop.stopName.toLowerCase()][1];
+    } catch {
+        console.log("South stop doesn't exist");
+    }
+
+    /*
     // try and implement multiple lines
     if (line === "red") {
         // basic exception handling for invalid inputs
@@ -110,8 +129,7 @@ function Stop({ stop, stops, removeStop, setTimeState, line }) {
             console.log("South stop doesn't exist");
         }
     }
-    
-    
+    */
 
 
     // state for API calls
@@ -124,7 +142,36 @@ function Stop({ stop, stops, removeStop, setTimeState, line }) {
         removeStop(stop.id);
     }
 
+    // alt calc mins
+    const calcMins = (res) => {
+        // get base times, with seconds for now HH:MM:SS
+        let arrival = res.data.data.ctatt.eta[0].arrT.substring(11, 19);
+        let request = res.data.data.ctatt.tmst.substring(11, 19);
+
+        // parse hours and minutes for both arrival and request time
+        let hoursArrival = arrival.substring(0, 2);
+        let minsArrival = arrival.substring(3, 5);
+
+        let hoursRequest = request.substring(0, 2);
+        let minsRequest = request.substring(3, 5);
+
+        // calculate total minutes in each time (from midnight/start of day)
+        let totMinsArrival = hoursArrival * 60 + minsArrival;
+        let totMinsRequest = hoursRequest * 60 + minsRequest;
+
+        // difference in minutes
+        const result = totMinsArrival - totMinsRequest;
+
+        // if 0 minutes, return "Approaching..."
+        if (result < 1) {
+            return "Approaching...";
+        } else {
+            return result + " minutes";
+        }
+    }
+
     // function to calc mins
+    /*
     const calcMins = (responseJson) => {
         //console.log(responseJson);
         //let hoursArrival = responseJson.data.ctatt.eta[0].arrT.substring(11, 13);
@@ -140,12 +187,13 @@ function Stop({ stop, stops, removeStop, setTimeState, line }) {
         // if there is a change of hour between request and arrival, need to change the equation
         if (Math.abs(arrivalMinutes) > 40) {
             arrivalMinutes = minsArrival - requestTimeMins + 60;
-        } /* implement if I can use conditional HTML rendering for 'minutes' after min number
+        }    implement if I can use conditional HTML rendering for 'minutes' after min number
             else if (arrivalMinutes === 0) {
             return "Approaching...";
-        } */
+        } 
         return arrivalMinutes;
     }
+    */
 
     // try and see if notifications can be passed down; set body to train coming
 
@@ -160,7 +208,7 @@ function Stop({ stop, stops, removeStop, setTimeState, line }) {
                 .then(
                     (response) => {
                         // set mins to arrival
-                        setTrainData(calcMins(response) + " minutes");
+                        setTrainData(calcMins(response));
                     }
                 )
                 .catch(err => {
@@ -175,7 +223,7 @@ function Stop({ stop, stops, removeStop, setTimeState, line }) {
                 .then(
                     (response) => {
                         // set mins to arrival
-                        setSouthTrainData(calcMins(response) + " minutes");
+                        setSouthTrainData(calcMins(response));
                     }
                 )
                 .catch(err => {

@@ -34,6 +34,7 @@ function App() {
     setStops(stops.filter(stop => stop.id !== id));
   }
 
+  // might switch to useRef later if broken
   function updateLine(val) {
     setLine(val);
     console.log(line);
@@ -72,6 +73,7 @@ function App() {
       <StopForm 
         addStop={addStop}
         updateLine={updateLine}
+        line={line}
       />
       <StopList
         stops={stops}

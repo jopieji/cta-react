@@ -7,12 +7,13 @@ import { Button, TextField } from "@material-ui/core";
 import { Form } from "react-bootstrap";
 
 
-function StopForm({ addStop, updateLine }) {
+function StopForm({ addStop, updateLine, line }) {
 
     const [stop, setStop] = useState({
         id: "",
         stopName: "",
         stopID: "",
+        stopLine: ""
     });
 
     function handleStopInputChange(e) {
@@ -23,7 +24,7 @@ function StopForm({ addStop, updateLine }) {
         e.preventDefault();
         if (stop.stopName.trim()) {
             addStop({ ...stop, id: v4() });
-            setStop({ ...stop, stopName:"" , stopID:""});
+            setStop({ ...stop, stopName:"" , stopID:"", stopLine:""});
         }
     }
 
