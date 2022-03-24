@@ -13,7 +13,7 @@ function App() {
 
   const [ stops, setStops ] = useState([]);
   const [ time, setTime ] = useState([]);
-  const [ line, setLine ] = useState("red");
+  const [ line, setLine ] = useState(null);
 
   useEffect(() => {
     const storageStops = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
@@ -37,7 +37,7 @@ function App() {
   // might switch to useRef later if broken
   function updateLine(val) {
     setLine(val);
-    console.log(line);
+    //console.log(line);
   }
 
   function setTimeState() {

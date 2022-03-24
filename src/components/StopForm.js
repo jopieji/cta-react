@@ -17,15 +17,19 @@ function StopForm({ addStop, updateLine, line }) {
     });
 
     function handleStopInputChange(e) {
-        setStop( {...stop, stopName: e.target.value});
+        setStop( {...stop, stopName: e.target.value, stopID:"", stopLine:line});
     }
 
     function handleSubmit(e) {
         e.preventDefault();
         if (stop.stopName.trim()) {
-            addStop({ ...stop, id: v4() });
-            setStop({ ...stop, stopName:"" , stopID:"", stopLine:""});
+            addStop({ ...stop, id: v4()});
+            setStop({ ...stop, stopName:"" , stopID:"", stopLine:line});
         }
+    }
+
+    function lineSwitch(e) {
+        updateLine(e.target.value);
     }
 
     return (
@@ -43,9 +47,7 @@ function StopForm({ addStop, updateLine, line }) {
             <Form.Control
                 as="select"
                 custom
-                onChange={ (e) => {
-                    updateLine(e.target.value);
-                }}
+                onChange={lineSwitch}
                 style={{ color: "#1c87c9", border: "0px", padding: "7px" }}
             >
                 <option value="red">Red</option>

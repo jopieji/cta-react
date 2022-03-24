@@ -4,10 +4,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import Axios from 'axios';
 
 
-function Stop({ stop, stops, removeStop, setTimeState, line }) {
+function Stop({ stop, stops, removeStop, setTimeState }) {
 
-    // set line
-    stop.stopLine = line;
 
     const trainStops = {
         red: {
@@ -257,6 +255,7 @@ function Stop({ stop, stops, removeStop, setTimeState, line }) {
             >
                 Northbound Arrival: {trainData}<br/>
                 Southbound Arrival: {southTrainData}<br/>
+                Line: {stop.stopLine}
             </Typography>
             <IconButton onClick={handleRemoveClick}>
                 <CloseIcon />    
