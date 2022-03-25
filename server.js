@@ -19,16 +19,6 @@ app.get('/ping', function (req, res) {
     return res.send('pong');
 });
 
-app.set('port', (config.PORT || 5000));
-
-// heroku fix test
-app.get('/', function(request, response) {
-    var result = 'App is running'
-    response.send(result);
-}).listen(app.get('port'), function() {
-    console.log('App is running, server is listening on port ', app.get('port'));
-});
-
 const key = config.TT_API_KEY;
 
 // fix CORS issue
@@ -40,9 +30,13 @@ const cors = require('cors');
 app.use(cors({ origin: 'http://localhost:3000'}));
 
 //show that server is up and running
+/*
 app.listen(config.PORT, config.HOST, () => {
     console.log(`App listening on http://${config.HOST}:${config.PORT}`);
 });
+*/
+// heroku config?
+app.listen(process.env.PORT || 5000);
 
 // creating a GET route
 app.get('/express_backend', (req, res) => {
