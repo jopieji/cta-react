@@ -24,11 +24,18 @@ app.get('/ping', function (req, res) {
 
 // fix CORS issue
 const cors = require('cors');
-//const { default: axios } = require("axios");
+
+const corsOptions = {
+    origin: "https://cta-react-heroku.herokuapp.com",
+    optionsSuccessStatus:200
+}
+
+app.use(cors(corsOptions));
+app.options("*", cors());
 
 // this allows calls from localhost:3000
 // fireship CORS video for context
-app.use(cors({ origin: 'http://localhost:3000'}));
+//app.use(cors({ origin: 'http://localhost:3000'}));
 
 //show that server is up and running
 /*
