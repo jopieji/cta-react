@@ -1,7 +1,7 @@
 // require express; basically an import
 const express = require("express");
 const axios = require('axios');
-const dotenv = require("dotenv");
+require("dotenv");
 
 // require config file
 const config = require("./src/config.js");
@@ -9,6 +9,7 @@ const config = require("./src/config.js");
 const key = process.env.TT_API_KEY;
 //console.log(key);
 console.log(`Listening on port ${process.env.PORT}`);
+console.log(`Host is ${process.env.HOST}`);
 
 // our access to express
 const app = express();
