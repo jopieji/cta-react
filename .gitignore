@@ -30,4 +30,4 @@ development.env
 .env
 
 # server for dev
-# server.js
+server.js

@@ -93,44 +93,6 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
         console.log("South stop doesn't exist");
     }
 
-    /*
-    // try and implement multiple lines
-    if (line === "red") {
-        // basic exception handling for invalid inputs
-        try {
-            stop.stopID = trainStops['redStops'][stop.stopName.toLowerCase()][0];
-        } catch {
-            console.log("North stop doesn't exist");
-            // remove stop if North doesn't exist because every stop
-            // has at least 1 location
-            removeStop(stop.id);
-        }
-        
-        try {
-            stop.stopIDS = trainStops['redStops'][stop.stopName.toLowerCase()][1];
-        } catch {
-            console.log("South stop doesn't exist");
-        }  
-    } else if (line === "brown") {
-        // basic exception handling for invalid inputs
-        try {
-            stop.stopID = trainStops['brownStops'][stop.stopName.toLowerCase()][0];
-        } catch {
-            console.log("North stop doesn't exist");
-            // remove stop if North doesn't exist because every stop
-            // has at least 1 location
-            removeStop(stop.id);
-        }
-        
-        try {
-            stop.stopIDS = trainStops['brownStops'][stop.stopName.toLowerCase()][1];
-        } catch {
-            console.log("South stop doesn't exist");
-        }
-    }
-    */
-
-
     // state for API calls
     // using these to store minutes
     const [ trainData, setTrainData ] = useState(null);
@@ -169,31 +131,6 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
         }
     }
 
-    // function to calc mins
-    /*
-    const calcMins = (responseJson) => {
-        //console.log(responseJson);
-        //let hoursArrival = responseJson.data.ctatt.eta[0].arrT.substring(11, 13);
-
-        // minute digits of arrival time
-        let minsArrival = responseJson.data.data.ctatt.eta[0].arrT.substring(14, 16);
-        // minute digits of request time
-        let requestTimeMins = responseJson.data.data.ctatt.tmst.substring(14, 16);
-
-        // obvious calculation to find mins to arrrival
-        let arrivalMinutes = minsArrival - requestTimeMins;
-
-        // if there is a change of hour between request and arrival, need to change the equation
-        if (Math.abs(arrivalMinutes) > 40) {
-            arrivalMinutes = minsArrival - requestTimeMins + 60;
-        }    implement if I can use conditional HTML rendering for 'minutes' after min number
-            else if (arrivalMinutes === 0) {
-            return "Approaching...";
-        } 
-        return arrivalMinutes;
-    }
-    */
-
     // try and see if notifications can be passed down; set body to train coming
 
 
@@ -203,7 +140,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
         
         const getTrainDataFromExpress = (stopID) => {
             //console.log(stopID);
-            Axios.get(`https://cta-react-heroku.herokuapp.com/${process.env.PORT}/train/${stopID}`)
+            Axios.get(`https://cta-api-heroku.herokuapp.com/train/${stopID}`)
                 .then(
                     (response) => {
                         // set mins to arrival
@@ -218,7 +155,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
         // easier to do south data in separate function
         const getSouthTrainDataFromExpress = (stopIDS) => {
             //console.log(stopIDS);
-            Axios.get(`/train/${stopIDS}`)
+            Axios.get(`https://cta-api-heroku.herokuapp.com/train/${stopIDS}`)
                 .then(
                     (response) => {
                         // set mins to arrival
