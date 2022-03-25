@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { ListItem, Typography, IconButton } from "@material-ui/core";
 import CloseIcon from '@material-ui/icons/Close';
 import Axios from 'axios';
-require("dotenv");
+// why is this breaking?
+//require("dotenv");
 
 function Stop({ stop, stops, removeStop, setTimeState }) {
 
