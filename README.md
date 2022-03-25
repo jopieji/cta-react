@@ -8,11 +8,13 @@ This project is going to be a web app that tracks a user's selected CTA trains a
 
 ---
 ### Using for Yourself
-Right now, this app is not deployed. Once I get an MVP up and running, I will deploy the app so everyone can use it easily.
+The app is finally deployed! 
 
-If you want to use it in its current form, you can sign up for the CTA Train Tracker API and get a developer key pretty easily. I was able to get mine in about a day, so it won't be too much of a hassle. Just make sure you put your key in the URL on the Stop.js file, and everything should work fine! 
+Check it out at [CTA Train Tracker]("https://cta-react-heroku.herokuapp.com/")
 
-You need to make a config.js file that exports your API key, host for the express server ("localhost"), and port for the express server.
+It was deployed via Heroku, which threw me for a loop initially, but should make CI/CD really easy. Currently, it just uses local storage to store your stops, so you can't have the same data displayed on different machines. I'll fix this at a later date, but didn't want to deal with database configuration on top of making my API work.
+
+
 
 ---
 ### Technology
