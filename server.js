@@ -18,19 +18,17 @@ const app = express();
 app.get('/ping', function (req, res) {
     return res.send('pong');
 });
-/*
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+
+app.set('port', (config.PORT || 5000));
+
+// heroku fix test
+app.get('/', function(request, response) {
+    var result = 'App is running'
+    response.send(result);
+}).listen(app.get('port'), function() {
+    console.log('App is running, server is listening on port ', app.get('port'));
 });
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
-*/
-// END OF SHOWING PAGE ON SERVER
-
-// api key for TT API
-// not working quite properly yet, but its okay
 const key = config.TT_API_KEY;
 
 // fix CORS issue
@@ -77,51 +75,3 @@ app.get('/train/:stopID', (req, res) => {
             console.log(err);
         });
 });
-
-// function to construct URL
-// test for now; can't change stop
-// will change stop based on API request from client using params /call/:stopId
-const getTrainUrl = () => {
-    //console.log(`${stop.stopname} : ${stop.stopID}`);
-    return `http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key=${key}&stpid=30251&outputType=JSON`;
-}
-
-// function to make call to TT API base
-/*
-const getTrainData = (trainUrl) => {
-    //const trainUrl = getTrainUrl(stop);
-    axios.get(trainUrl).then(
-        (response) => {
-            console.log(response);
-            //axiosExpress();
-            //const mTA = calcMins(response);
-            //setTrainData(northMinutesToArrival);
-            return response;
-        }
-        ).catch(err => {
-            console.log(err);
-        });
-}
-
-// function to calc mins
-const calcMins = (responseJson) => {
-    //let hoursArrival = responseJson.data.ctatt.eta[0].arrT.substring(11, 13);
-
-    // minute digits of arrival time
-    let minsArrival = responseJson.data.ctatt.eta[0].arrT.substring(14, 16);
-    // minute digits of request time
-    let requestTimeMins = responseJson.data.ctatt.tmst.substring(14, 16);
-
-    // obvious calculation to find mins to arrrival
-    let arrivalMinutes = minsArrival - requestTimeMins;
-
-    // if there is a change of hour between request and arrival, need to change the equation
-    if (Math.abs(arrivalMinutes) > 40) {
-        arrivalMinutes = minsArrival - requestTimeMins + 60
-    } /* implement if I can use conditional HTML rendering for 'minutes' after min number
-        else if (arrivalMinutes === 0) {
-        return "Approaching...";
-    } 
-    return arrivalMinutes;
-}
-*/
