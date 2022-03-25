@@ -1,14 +1,14 @@
 // require express; basically an import
 const express = require("express");
 const axios = require('axios');
+const dotenv = require("dotenv");
 
 // require config file
 const config = require("./src/config.js");
 
-// require dotenv
-/*
-require('dotenv');
-*/
+const key = process.env.TT_API_KEY;
+//console.log(key);
+console.log(`Listening on port ${process.env.PORT}`);
 
 // our access to express
 const app = express();
@@ -19,7 +19,7 @@ app.get('/ping', function (req, res) {
     return res.send('pong');
 });
 
-const key = config.TT_API_KEY;
+//const key = config.TT_API_KEY;
 
 // fix CORS issue
 const cors = require('cors');
@@ -36,7 +36,7 @@ app.listen(config.PORT, config.HOST, () => {
 });
 */
 // heroku config?
-app.listen(process.env.PORT || 5000);
+app.listen(process.env.PORT || 4000);
 
 // creating a GET route
 app.get('/express_backend', (req, res) => {
