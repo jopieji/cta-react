@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ListItem, Typography, IconButton } from "@material-ui/core";
 import CloseIcon from '@material-ui/icons/Close';
 import Axios from 'axios';
+require('dotenv');
 
 
 function Stop({ stop, stops, removeStop, setTimeState }) {
@@ -202,7 +203,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
         
         const getTrainDataFromExpress = (stopID) => {
             //console.log(stopID);
-            Axios.get(`/train/${stopID}`)
+            Axios.get(`https://cta-react-heroku.herokuapp.com/${process.env.HOST}/train/${stopID}`)
                 .then(
                     (response) => {
                         // set mins to arrival
