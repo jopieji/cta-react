@@ -1,4 +1,3 @@
-import { NotificationsOutlined } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react';
 
 function NotificationSys() {

@@ -3,7 +3,7 @@ const express = require("express");
 const axios = require('axios');
 
 // require config file
-const config = require("./config.js");
+const config = require("./src/config.js");
 
 // require dotenv
 /*

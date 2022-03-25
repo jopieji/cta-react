@@ -8,11 +8,6 @@ import Typography from "@material-ui/core/Typography";
 import StopList from './components/StopList';
 import StopForm from './components/StopForm';
 
-// firebase
-import { initializeApp } from "firebase/app";
-import firebaseConfig from "../config";
-app = initializeApp(firebaseConfig);
-
 const LOCAL_STORAGE_KEY = 'cta-stop-list-stops';
 
 function App() {
