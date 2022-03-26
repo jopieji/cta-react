@@ -83,9 +83,7 @@ function App() {
         removeStop={removeStop}
         setTimeState={setTimeState}
       />
-      <GithubFooter 
-        style={{padding = "100px"}}
-      />
+      <GithubFooter />
     </div>
   );
 }
