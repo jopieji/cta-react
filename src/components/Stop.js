@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { ListItem, Typography, IconButton } from "@material-ui/core";
 import CloseIcon from '@material-ui/icons/Close';
 import Axios from 'axios';
-// why is this breaking?
-//require("dotenv");
+
+import trainStops from "../stopData";
 
 function Stop({ stop, stops, removeStop, setTimeState }) {
 
-
+    /*
     const trainStops = {
         red: {
                 'howard': [30173, 30174],
@@ -77,6 +77,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
             'washington/wells': [30142, 'S']
         }
     }
+    */
 
     try {
         stop.stopID = trainStops[stop.stopLine][stop.stopName.toLowerCase()][0];
