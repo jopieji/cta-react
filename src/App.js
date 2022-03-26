@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 // components
 import StopList from './components/StopList';
 import StopForm from './components/StopForm';
+import GithubFooter from "./components/GithubFooter";
 
 const LOCAL_STORAGE_KEY = 'cta-stop-list-stops';
 
@@ -81,6 +82,9 @@ function App() {
         line={line}
         removeStop={removeStop}
         setTimeState={setTimeState}
+      />
+      <GithubFooter 
+        style={{padding = "100px"}}
       />
     </div>
   );

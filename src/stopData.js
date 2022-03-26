@@ -68,6 +68,6 @@ const trainStops = {
     }
 }
 
-module.exports(
-    {trainStops: trainStops}
-)
+module.exports = {
+    trainStops: trainStops
+}
