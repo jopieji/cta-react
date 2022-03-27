@@ -34,7 +34,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
         //console.log("North stop doesn't exist");
         // remove stop if North doesn't exist because every stop
         // has at least 1 location
-        removeStop(stop.id);
+        //removeStop(stop.id);
     }
 
     try {
