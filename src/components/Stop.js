@@ -6,22 +6,13 @@ import Axios from 'axios';
 import trainStops from "../stopData";
 
 function Stop({ stop, stops, removeStop, setTimeState }) {
-    console.log(stop.stopName);
-    console.log(stop.stopLine);
-
-    stopID = trainStops[stop.stopLine][stop.stopName.toLowerCase()][0];
-
-    // some brown line stops have no second station
-    try {
-        stopIDS = trainStops[stop.stopLine][stop.stopName.toLowerCase()][1];
-    } catch {
-        console.log("South stop doesn't exist");
-    }
 
     // state for API calls
     // using these to store minutes
     const [ trainData, setTrainData ] = useState(null);
     const [ southTrainData, setSouthTrainData ] = useState(null);
+    //const [ stopID, setStopID ] = useState(null);
+    //const [ stopIDS, setStopIDS ] = useState(null);
 
     let topDest = "Northbound";
     let botDest = "Southbound";
@@ -74,6 +65,17 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
     // need to check if it isMounted before updating state in useEffect()
     useEffect(() => {
         
+
+        stopID = trainStops[stop.stopLine][stop.stopName.toLowerCase()][0];
+
+        // some brown line stops have no second station
+        try {
+            stopIDS = trainStops[stop.stopLine][stop.stopName.toLowerCase()][1];
+        } catch {
+            console.log("South stop doesn't exist");
+        }
+
+
         const getTrainDataFromExpress = (stopID) => {
             console.log(stopID);
             Axios.get(`https://cta-api-heroku.herokuapp.com/train/${stopID}`)
