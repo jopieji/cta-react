@@ -69,12 +69,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
         let stopID = trainStops[stop.stopLine][stop.stopName.toLowerCase()][0];
 
         // some brown line stops have no second station
-        let stopIDS = 30174;
-        try {
-            stopIDS = trainStops[stop.stopLine][stop.stopName.toLowerCase()][1];
-        } catch {
-            console.log("South stop doesn't exist");
-        }
+        let stopIDS = trainStops[stop.stopLine][stop.stopName.toLowerCase()][1];
 
 
         const getTrainDataFromExpress = (stopID) => {
