@@ -12,18 +12,19 @@ function StopForm({ addStop, updateLine, line }) {
     const [stop, setStop] = useState({
         id: "",
         stopName: "",
+        stopID: "",
         stopLine: ""
     });
 
     function handleStopInputChange(e) {
-        setStop( {...stop, stopName: e.target.value, stopLine:line});
+        setStop( {...stop, stopName: e.target.value, stopID:"", stopLine:line});
     }
 
     function handleSubmit(e) {
         e.preventDefault();
         if (stop.stopName.trim()) {
             addStop({ ...stop, id: v4()});
-            setStop({ ...stop, stopName:"", stopLine:line});
+            setStop({ ...stop, stopName:"" , stopID:"", stopLine:line});
         }
     }
 
