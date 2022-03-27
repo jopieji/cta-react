@@ -6,9 +6,9 @@ function GithubFooter() {
         <div className="footer">
             <Typography
                 variant="h6"
-                style={{color: "white" }}
+                style={{color: "red" }}
             >
-            Github: <a href="https://github.com/jopieji" target="_blank" color="red">jopieji</a>
+            <a href="https://github.com/jopieji" target="_blank">Github</a>
             </Typography>
         </div>
         

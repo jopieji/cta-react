@@ -32,7 +32,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
         removeStop(stop.id);
     }
 
-    // alt calc mins
+    // calculates minutes to arrival
     const calcMins = (res) => {
         // get base times, HH:MM
         let arrival = res.data.data.ctatt.eta[0].arrT.substring(11, 16);
@@ -60,7 +60,13 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
         }
     }
 
-    // try and see if notifications can be passed down; set body to train coming
+    // determines and sets destination station for each line
+    const setDestinationStation = (res) => {
+        // get destination station
+        let destination = res.data.data.ctatt.eta[0].destSt;
+        console.log(destination);
+
+    }
 
 
     // useEffect to update the time when component mounts;
@@ -68,12 +74,12 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
     useEffect(() => {
         
         const getTrainDataFromExpress = (stopID) => {
-            //console.log(stopID);
             Axios.get(`https://cta-api-heroku.herokuapp.com/train/${stopID}`)
                 .then(
                     (response) => {
                         // set mins to arrival
                         setTrainData(calcMins(response));
+                        console.log(`N Dest station: ${setDestinationStation(response)}`);
                     }
                 )
                 .catch(err => {
