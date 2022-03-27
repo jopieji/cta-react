@@ -31,8 +31,8 @@ function StopForm({ addStop, updateLine, line }) {
     function handleSubmit(e) {
         e.preventDefault();
         if (stop.stopName.trim()) {
-            addStop({ ...stop, id: v4()});
             setStop({ ...stop, stopID: getStopID(stop), stopLine:line});
+            addStop({ ...stop, id: v4()});
         }
     }
 
