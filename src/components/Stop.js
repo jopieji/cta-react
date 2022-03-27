@@ -7,6 +7,8 @@ import trainStops from "../stopData";
 
 function Stop({ stop, stops, removeStop, setTimeState }) {
 
+    const TS = trainStops;
+
     // state for API calls
     // using these to store minutes
     const [ trainData, setTrainData ] = useState(null);
@@ -104,8 +106,8 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
 
         // might need to define functions within the useEffect
         async function setData() {
-            await getTrainDataFromExpress(trainStops['red'][stop.stopName.toLowerCase()][0]);
-            await getSouthTrainDataFromExpress(stop.stopID[1]);
+            await getTrainDataFromExpress(TS['red'][stop.stopName.toLowerCase()][0]);
+            //await getSouthTrainDataFromExpress(stop.stopID[1]);
         }
         
         setData();

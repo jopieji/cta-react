@@ -20,7 +20,6 @@ function StopForm({ addStop, updateLine, line }) {
     const [stop, setStop] = useState({
         id: "",
         stopName: "",
-        stopID: [],
         stopLine: ""
     });
 
@@ -33,8 +32,8 @@ function StopForm({ addStop, updateLine, line }) {
         e.preventDefault();
         if (stop.stopName.trim()) {
             // these started in opposite order: might need to change em back
-            setStop({ ...stop, stopID: arr, stopLine: line});
             addStop({ ...stop, id: v4()});
+            setStop({ ...stop, stopLine: line});
         }
     }
 
