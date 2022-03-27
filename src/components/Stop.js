@@ -17,12 +17,14 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
     const [ destinationStationTop, setDestinationStationTop ] = useState("Northbound");
     const [ destinationStationBot, setDestinationStationBot ] = useState("N/A");
     */
+    let topDest = "Northbound";
+    let botDest = "Southbound";
     if (stop.stopLine == "red") { 
-        const topDest = "Howard";
-        const botDest = "95th/Dan Ryan";
+        topDest = "Howard";
+        botDest = "95th/Dan Ryan";
     } else if (stop.stopLine == "brown") {
-        const topDest = "Kimball";
-        const botDest = "Loop";
+        topDest = "Kimball";
+        botDest = "Loop";
     }
     // add more when lines are added
 
