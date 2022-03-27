@@ -13,15 +13,16 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
     const [ southTrainData, setSouthTrainData ] = useState(null);
 
     // state for direction
+    /*
     const [ destinationStationTop, setDestinationStationTop ] = useState("Northbound");
     const [ destinationStationBot, setDestinationStationBot ] = useState("N/A");
-
+    */
     if (stop.stopLine == "red") { 
-        setDestinationStationTop("Howard");
-        setDestinationStationBot("95th/Dan Ryan");
+        const topDest = "Howard";
+        const botDest = "95th/Dan Ryan";
     } else if (stop.stopLine == "brown") {
-        setDestinationStationTop("Kimball");
-        setDestinationStationBot("Loop");
+        const topDest = "Kimball";
+        const botDest = "Loop";
     }
     // add more when lines are added
 
@@ -133,8 +134,8 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
                 variant="body2"
                 style={{marginLeft: 15}}
             >
-                {destinationStationTop}: {trainData}<br/>
-                {destinationStationBot}: {southTrainData}<br/>
+                {topDest}: {trainData}<br/>
+                {botDest}: {southTrainData}<br/>
                 Line: {stop.stopLine}
             </Typography>
             <IconButton onClick={handleRemoveClick}>
