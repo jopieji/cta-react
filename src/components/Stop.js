@@ -65,7 +65,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
     // need to check if it isMounted before updating state in useEffect()
     useEffect(() => {
         
-
+        console.log(stop.stopID);
         //let stopID = trainStops[stop.stopLine][stop.stopName.toLowerCase()][0];
 
         // some brown line stops have no second station
@@ -73,7 +73,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
 
 
         const getTrainDataFromExpress = (stopID) => {
-            console.log(stopID);
+            //console.log(stop.stopID);
             Axios.get(`https://cta-api-heroku.herokuapp.com/train/${stopID}`)
                 .then(
                     (response) => {
