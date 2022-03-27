@@ -29,10 +29,11 @@ function StopForm({ addStop, updateLine, line }) {
     }
 
     function handleSubmit(e) {
+        let arr = getStopID(stop);
         e.preventDefault();
         if (stop.stopName.trim()) {
             // these started in opposite order: might need to change em back
-            setStop({ ...stop, stopID: getStopID(stop), stopLine: line});
+            setStop({ ...stop, stopID: arr, stopLine: line});
             addStop({ ...stop, id: v4()});
         }
     }

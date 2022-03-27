@@ -10,6 +10,8 @@ This project is going to be a web app that tracks a user's selected CTA trains a
 ### Using for Yourself
 The app is finally deployed! 
 
+NOTE: It is broken right now, but I'm working really hard to figure out the issue that came about. I changed nothing, and the app broke overnight.
+
 Check it out at [CTA Train Tracker](URL "https://cta-react-heroku.herokuapp.com/")
 
 It was deployed via Heroku, which threw me for a loop initially, but should make CI/CD really easy. Currently, it just uses local storage to store your stops, so you can't have the same data displayed on different machines. I'll fix this at a later date, but didn't want to deal with database configuration on top of making my API work.

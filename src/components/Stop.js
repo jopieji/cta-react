@@ -3,7 +3,7 @@ import { ListItem, Typography, IconButton } from "@material-ui/core";
 import CloseIcon from '@material-ui/icons/Close';
 import Axios from 'axios';
 
-import trainStops from "../stopData";
+//import trainStops from "../stopData";
 
 function Stop({ stop, stops, removeStop, setTimeState }) {
 
