@@ -31,7 +31,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
     try {
         stop.stopID = trainStops[stop.stopLine][stop.stopName.toLowerCase()][0];
     } catch {
-        //console.log("North stop doesn't exist");
+        console.log("North stop doesn't exist");
         // remove stop if North doesn't exist because every stop
         // has at least 1 location
         //removeStop(stop.id);
@@ -40,7 +40,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
     try {
         stop.stopIDS = trainStops[stop.stopLine][stop.stopName.toLowerCase()][1];
     } catch {
-        //console.log("South stop doesn't exist");
+        console.log("South stop doesn't exist");
     }
 
     // function to remove a stop
