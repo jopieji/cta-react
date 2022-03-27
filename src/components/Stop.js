@@ -79,8 +79,12 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
                     (response) => {
                         // set mins to arrival
                         setTrainData(calcMins(response));
-                        console.log(`N Dest station: ${setDestinationStation(response)}`);
                     }
+                ).then(
+                   (response) => {
+                       // test dest station
+                       console.log(`N Dest station: ${setDestinationStation(response)}`);
+                   } 
                 )
                 .catch(err => {
                     console.log(err);
