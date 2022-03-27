@@ -50,7 +50,7 @@ app.listen(config.PORT, config.HOST, () => {
 });
 
 // heroku config?
-app.listen(config.PORT || 4001);
+app.listen(config.PORT || 4000);
 
 // creating a GET route
 app.get('/express_backend', (req, res) => {

@@ -6,7 +6,7 @@ import { v4 } from "uuid";
 import { Button, TextField } from "@material-ui/core";
 import { Form } from "react-bootstrap";
 
-import trainStops from "../src/stopData.js";
+import trainStops from "../stopData.js";
 
 
 function StopForm({ addStop, updateLine, line }) {
