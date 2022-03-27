@@ -20,7 +20,7 @@ function StopForm({ addStop, updateLine, line }) {
     const [stop, setStop] = useState({
         id: "",
         stopName: "",
-        stopID: "",
+        stopID: [],
         stopLine: ""
     });
 
