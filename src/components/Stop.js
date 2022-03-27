@@ -26,8 +26,8 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
     // using these to store minutes
     const [ trainData, setTrainData ] = useState(null);
     const [ southTrainData, setSouthTrainData ] = useState(null);
-    const [ destinationStationTop, setDestinationStationTop ] = useState(null);
-    const [ destinationStationBot, setDestinationStationBot ] = useState(null);
+    const [ destinationStationTop, setDestinationStationTop ] = useState("Northbound");
+    const [ destinationStationBot, setDestinationStationBot ] = useState("N/A");
 
     // function to remove a stop
     function handleRemoveClick() {
@@ -35,10 +35,18 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
     }
 
     // calculates minutes to arrival
-    const calcMins = (res) => {
+    const calcMins = (res, directionFlag) => {
+
+        if (directionFlag == 1) {
+            setDestinationStationTop(res.data.data.ctatt.eta[0].destNm);
+        } else if (directionFlag == 2) {
+            setDestinationStationBot(res.data.data.ctatt.eta[0].destNm);
+        }
+
         // get base times, HH:MM
         let arrival = res.data.data.ctatt.eta[0].arrT.substring(11, 16);
         let request = res.data.data.ctatt.tmst.substring(11, 16);
+        
 
         // parse hours and minutes for both arrival and request time
         let hoursArrival = Number(arrival.substring(0, 2));
@@ -62,14 +70,6 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
         }
     }
 
-    // determines and sets destination station for each line
-    const getDestinationStation = (res) => {
-        // get destination station
-        let destination = res.data.data.ctatt.eta[0].destNm;
-        console.log(destination);
-
-    }
-
 
     // useEffect to update the time when component mounts;
     // need to check if it isMounted before updating state in useEffect()
@@ -80,9 +80,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
                 .then(
                     (response) => {
                         // set mins to arrival
-                        setTrainData(calcMins(response));
-                        // test dest station
-                        setDestinationStationTop(getDestinationStation(response));
+                        setTrainData(calcMins(response, 1));
                     }
                 )
                 .catch(err => {
@@ -97,9 +95,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
                 .then(
                     (response) => {
                         // set mins to arrival
-                        setSouthTrainData(calcMins(response));
-                        // set dest station bottom
-                        setDestinationStationBot(getDestinationStation(response))
+                        setSouthTrainData(calcMins(response, 2));
                     }
                 )
                 .catch(err => {
