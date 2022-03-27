@@ -66,10 +66,10 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
     useEffect(() => {
         
 
-        let stopID = trainStops[stop.stopLine][stop.stopName.toLowerCase()][0];
+        //let stopID = trainStops[stop.stopLine][stop.stopName.toLowerCase()][0];
 
         // some brown line stops have no second station
-        let stopIDS = trainStops[stop.stopLine][stop.stopName.toLowerCase()][1];
+        //let stopIDS = trainStops[stop.stopLine][stop.stopName.toLowerCase()][1];
 
 
         const getTrainDataFromExpress = (stopID) => {
@@ -103,8 +103,8 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
 
         // might need to define functions within the useEffect
         async function setData() {
-            await getTrainDataFromExpress(stopID);
-            await getSouthTrainDataFromExpress(stopIDS);
+            await getTrainDataFromExpress(stop.stopID[0]);
+            await getSouthTrainDataFromExpress(stop.stopID[1]);
         }
         
         setData();
