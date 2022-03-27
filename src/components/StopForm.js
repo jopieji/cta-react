@@ -24,7 +24,7 @@ function StopForm({ addStop, updateLine, line }) {
         e.preventDefault();
         if (stop.stopName.trim()) {
             addStop({ ...stop, id: v4()});
-            setStop({ ...stop, stopName:"" , stopLine:line});
+            setStop({ ...stop, stopName:"", stopLine:line});
         }
     }
 

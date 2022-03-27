@@ -6,6 +6,8 @@ import Axios from 'axios';
 import trainStops from "../stopData";
 
 function Stop({ stop, stops, removeStop, setTimeState }) {
+    console.log(stop.stopName);
+    console.log(stop.stopLine);
     try {
         stop.stopID = trainStops[stop.stopLine][stop.stopName.toLowerCase()][0];
     } catch {
@@ -20,7 +22,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
     } catch {
         console.log("South stop doesn't exist");
     }
-    
+
     // state for API calls
     // using these to store minutes
     const [ trainData, setTrainData ] = useState(null);
