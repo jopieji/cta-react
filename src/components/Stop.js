@@ -7,6 +7,24 @@ import trainStops from "../stopData";
 
 function Stop({ stop, stops, removeStop, setTimeState }) {
 
+    // state for API calls
+    // using these to store minutes
+    const [ trainData, setTrainData ] = useState(null);
+    const [ southTrainData, setSouthTrainData ] = useState(null);
+
+    // state for direction
+    const [ destinationStationTop, setDestinationStationTop ] = useState("Northbound");
+    const [ destinationStationBot, setDestinationStationBot ] = useState("N/A");
+
+    if (stop.stopLine == "red") { 
+        setDestinationStationTop("Howard");
+        setDestinationStationBot("95th/Dan Ryan");
+    } else if (stop.stopLine == "brown") {
+        setDestinationStationTop("Kimball");
+        setDestinationStationBot("Loop");
+    }
+    // add more when lines are added
+
     try {
         stop.stopID = trainStops[stop.stopLine][stop.stopName.toLowerCase()][0];
     } catch {
@@ -22,26 +40,13 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
         //console.log("South stop doesn't exist");
     }
 
-    // state for API calls
-    // using these to store minutes
-    const [ trainData, setTrainData ] = useState(null);
-    const [ southTrainData, setSouthTrainData ] = useState(null);
-    const [ destinationStationTop, setDestinationStationTop ] = useState("Northbound");
-    const [ destinationStationBot, setDestinationStationBot ] = useState("N/A");
-
     // function to remove a stop
     function handleRemoveClick() {
         removeStop(stop.id);
     }
 
     // calculates minutes to arrival
-    const calcMins = (res, directionFlag) => {
-
-        if (directionFlag == 1) {
-            setDestinationStationTop(res.data.data.ctatt.eta[0].destNm);
-        } else if (directionFlag == 2) {
-            setDestinationStationBot(res.data.data.ctatt.eta[0].destNm);
-        }
+    const calcMins = (res) => {
 
         // get base times, HH:MM
         let arrival = res.data.data.ctatt.eta[0].arrT.substring(11, 16);
@@ -80,7 +85,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
                 .then(
                     (response) => {
                         // set mins to arrival
-                        setTrainData(calcMins(response, 1));
+                        setTrainData(calcMins(response));
                     }
                 )
                 .catch(err => {
@@ -95,7 +100,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
                 .then(
                     (response) => {
                         // set mins to arrival
-                        setSouthTrainData(calcMins(response, 2));
+                        setSouthTrainData(calcMins(response));
                     }
                 )
                 .catch(err => {
