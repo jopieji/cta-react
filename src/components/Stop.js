@@ -12,11 +12,6 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
     const [ trainData, setTrainData ] = useState(null);
     const [ southTrainData, setSouthTrainData ] = useState(null);
 
-    // state for direction
-    /*
-    const [ destinationStationTop, setDestinationStationTop ] = useState("Northbound");
-    const [ destinationStationBot, setDestinationStationBot ] = useState("N/A");
-    */
     let topDest = "Northbound";
     let botDest = "Southbound";
     if (stop.stopLine == "red") { 
@@ -57,11 +52,11 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
         
 
         // parse hours and minutes for both arrival and request time
-        let hoursArrival = Number(arrival.substring(0, 2));
-        let minsArrival = Number(arrival.substring(3, 5));
+        let hoursArrival = arrival.substring(0, 2);
+        let minsArrival = arrival.substring(3, 5);
 
-        let hoursRequest = Number(request.substring(0, 2));
-        let minsRequest = Number(request.substring(3, 5));
+        let hoursRequest = request.substring(0, 2);
+        let minsRequest = request.substring(3, 5);
 
         // calculate total minutes in each time (from midnight/start of day)
         let totMinsArrival = (hoursArrival * 60) + minsArrival;
@@ -98,7 +93,6 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
 
         // easier to do south data in separate function
         const getSouthTrainDataFromExpress = (stopIDS) => {
-            //console.log(stopIDS);
             Axios.get(`https://cta-api-heroku.herokuapp.com/train/${stopIDS}`)
                 .then(
                     (response) => {
