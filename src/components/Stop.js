@@ -3,7 +3,7 @@ import { ListItem, Typography, IconButton } from "@material-ui/core";
 import CloseIcon from '@material-ui/icons/Close';
 import Axios from 'axios';
 
-//import trainStops from "../stopData";
+import trainStops from "../stopData";
 
 function Stop({ stop, stops, removeStop, setTimeState }) {
 
@@ -65,7 +65,8 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
     // need to check if it isMounted before updating state in useEffect()
     useEffect(() => {
         
-        console.log(stop.stopID);
+        console.log(stop.stopName);
+        console.log(stop.stopLine);
         //let stopID = trainStops[stop.stopLine][stop.stopName.toLowerCase()][0];
 
         // some brown line stops have no second station
@@ -103,7 +104,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
 
         // might need to define functions within the useEffect
         async function setData() {
-            await getTrainDataFromExpress(stop.stopID[0]);
+            await getTrainDataFromExpress(trainStops[stop.Line][stop.stopName][0]);
             await getSouthTrainDataFromExpress(stop.stopID[1]);
         }
         
