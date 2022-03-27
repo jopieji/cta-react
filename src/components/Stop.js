@@ -66,11 +66,11 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
     useEffect(() => {
         
 
-        stopID = trainStops[stop.stopLine][stop.stopName.toLowerCase()][0];
+        let stopID = trainStops[stop.stopLine][stop.stopName.toLowerCase()][0];
 
         // some brown line stops have no second station
         try {
-            stopIDS = trainStops[stop.stopLine][stop.stopName.toLowerCase()][1];
+            let stopIDS = trainStops[stop.stopLine][stop.stopName.toLowerCase()][1];
         } catch {
             console.log("South stop doesn't exist");
         }
