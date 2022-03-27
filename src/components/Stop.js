@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { ListItem, Typography, IconButton } from "@material-ui/core";
 import CloseIcon from '@material-ui/icons/Close';
 import Axios from 'axios';
-
-//import trainStops from "../stopData";
+// why is this breaking?
+//require("dotenv");
 
 function Stop({ stop, stops, removeStop, setTimeState }) {
+
 
     const trainStops = {
         red: {
@@ -43,7 +44,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
                 '87th': [30276, 30275],
                 '95th/dan ryan': [30088, 30089]
         },
-    
+
         brown: {
             'kimball': [30249, 30250],
             'kedzie': [30225, 30226],
@@ -104,20 +105,20 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
 
     // alt calc mins
     const calcMins = (res) => {
-        // get base times, HH:MM
-        let arrival = res.data.data.ctatt.eta[0].arrT.substring(11, 16);
-        let request = res.data.data.ctatt.tmst.substring(11, 16);
+        // get base times, with seconds for now HH:MM:SS
+        let arrival = res.data.data.ctatt.eta[0].arrT.substring(11, 19);
+        let request = res.data.data.ctatt.tmst.substring(11, 19);
 
         // parse hours and minutes for both arrival and request time
-        let hoursArrival = Number(arrival.substring(0, 2));
-        let minsArrival = Number(arrival.substring(3, 5));
+        let hoursArrival = arrival.substring(0, 2);
+        let minsArrival = arrival.substring(3, 5);
 
-        let hoursRequest = Number(request.substring(0, 2));
-        let minsRequest = Number(request.substring(3, 5));
+        let hoursRequest = request.substring(0, 2);
+        let minsRequest = request.substring(3, 5);
 
         // calculate total minutes in each time (from midnight/start of day)
-        let totMinsArrival = (hoursArrival * 60) + minsArrival;
-        let totMinsRequest = (hoursRequest * 60) + minsRequest;
+        let totMinsArrival = hoursArrival * 60 + minsArrival;
+        let totMinsRequest = hoursRequest * 60 + minsRequest;
 
         // difference in minutes
         const result = totMinsArrival - totMinsRequest;

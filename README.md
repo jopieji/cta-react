@@ -18,7 +18,7 @@ It was deployed via Heroku, which threw me for a loop initially, but should make
 
 ---
 ### Technology
-The technologies I am using React, Nodejs, the CTA Train Tracker API, Express, and Heroku. Right now, I'm just using Local Storage to store stops, but a login function and cross-platform data sharing could make the user experience more pleasurable. 
+The technologies I am using React, Nodejs, the CTA Train Tracker API, Express, and maybe MongoDB. I might just use local storage to prevent extra complication, but I will see what is most intuitive.
 
 I might try out some no-code tools to see what they are like. No-code tools would speed up development, but might also take away from my learning, so I am a little split on this decision.
 
