@@ -7,36 +7,108 @@ import trainStops from "../stopData";
 
 function Stop({ stop, stops, removeStop, setTimeState }) {
 
+    /*
+    const trainStops = {
+        red: {
+                'howard': [30173, 30174],
+                'jarvis': [30227, 30228],
+                'morse': [30020, 30021],
+                'loyola': [30251, 30252],
+                'granville': [30147, 30148],
+                'thorndale': [30169, 30170],
+                'bryn mawr': [30267, 30268],
+                'berwyn': [30066, 30067],
+                'argyle': [30229, 30230],
+                'lawrence': [30149, 30150],
+                'wilson': [30105, 30106],
+                'sheridan': [30016, 30017],
+                'addison': [30273, 30274],
+                'belmont': [30255, 30256],
+                'fullerton': [30233, 30234],
+                'north/clybourn': [30125, 30126],
+                'clark/division': [30121, 30122],
+                'chicago': [30279, 30280],
+                'grand': [30064, 30065],
+                'lake': [30289, 30290],
+                'monroe': [30211, 30212],
+                'jackson': [30109, 30110],
+                'harrison': [30285, 30286],
+                'roosevelt': [30269, 30270],
+                'cermak-chinatown': [30193, 30194],
+                'sox-35th': [30036, 30037],
+                '47th': [30237, 30238],
+                'garfield': [30223, 30224],
+                '63rd': [30177, 30178],
+                '69th': [30191, 30192],
+                '79th': [30046, 30047],
+                '87th': [30276, 30275],
+                '95th/dan ryan': [30088, 30089]
+        },
+
+        brown: {
+            'kimball': [30249, 30250],
+            'kedzie': [30225, 30226],
+            'francisco': [30167, 30168],
+            'rockwell': [30195, 30196],
+            'western': [30283, 30284],
+            'damen': [30018, 30019],
+            'montrose': [30287, 30288],
+            'irving park': [30281, 30282],
+            'addison': [30277, 30278],
+            'paulina': [30253, 30254],
+            'southport': [30070, 30071],
+            'belmont': [30257, 30258],
+            'wellington': [30231, 30232],
+            'diversey': [30103, 30104],
+            'fullerton': [30235, 30236],
+            'armitage': [30127, 20128],
+            'sedgwick': [30155, 30156],
+            'chicago': [30137, 30138],
+            'merchandise mart': [30090, 30091],
+            'clark/lake': [40380, 'S'],
+            'state/lake': [30051, 'S'],
+            'randolph/wabash': [0, 'S'],
+            'madison/wabash': [0, 'S'],
+            'adams/wabash': [30131, 'S'],
+            'harold washington library': [30165, 'S'],
+            'lasalle/van buren': [30030, 'S'],
+            'quincy': [30008, 'S'],
+            'washington/wabash': [30383, 'S'],
+            'washington/wells': [30142, 'S']
+        }
+    }
+    */
+
+    try {
+        stop.stopID = trainStops[stop.stopLine][stop.stopName.toLowerCase()][0];
+    } catch {
+        console.log("North stop doesn't exist");
+        // remove stop if North doesn't exist because every stop
+        // has at least 1 location
+        //removeStop(stop.id);
+    }
+
+    try {
+        stop.stopIDS = trainStops[stop.stopLine][stop.stopName.toLowerCase()][1];
+    } catch {
+        console.log("South stop doesn't exist");
+    }
+
     // state for API calls
     // using these to store minutes
     const [ trainData, setTrainData ] = useState(null);
     const [ southTrainData, setSouthTrainData ] = useState(null);
-    //const [ stopID, setStopID ] = useState(null);
-    //const [ stopIDS, setStopIDS ] = useState(null);
-
-    let topDest = "Northbound";
-    let botDest = "Southbound";
-    if (stop.stopLine === "red") { 
-        topDest = "Howard";
-        botDest = "95th/Dan Ryan";
-    } else if (stop.stopLine === "brown") {
-        topDest = "Kimball";
-        botDest = "Loop";
-    }
-    // add more when lines are added
 
     // function to remove a stop
     function handleRemoveClick() {
         removeStop(stop.id);
     }
 
-    // calculates minutes to arrival
+    // alt calc mins
     const calcMins = (res) => {
-
-        // get base times, HH:MM
-        let arrival = res.data.data.ctatt.eta[0].arrT.substring(11, 16);
-        let request = res.data.data.ctatt.tmst.substring(11, 16);
-        
+        // get base times, with seconds for now HH:MM:SS
+        let arrival = res.data.data.ctatt.eta[0].arrT.substring(11, 19);
+        let request = res.data.data.ctatt.tmst.substring(11, 19);
 
         // parse hours and minutes for both arrival and request time
         let hoursArrival = arrival.substring(0, 2);
@@ -46,8 +118,8 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
         let minsRequest = request.substring(3, 5);
 
         // calculate total minutes in each time (from midnight/start of day)
-        let totMinsArrival = (hoursArrival * 60) + minsArrival;
-        let totMinsRequest = (hoursRequest * 60) + minsRequest;
+        let totMinsArrival = hoursArrival * 60 + minsArrival;
+        let totMinsRequest = hoursRequest * 60 + minsRequest;
 
         // difference in minutes
         const result = totMinsArrival - totMinsRequest;
@@ -60,20 +132,15 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
         }
     }
 
+    // try and see if notifications can be passed down; set body to train coming
+
 
     // useEffect to update the time when component mounts;
     // need to check if it isMounted before updating state in useEffect()
     useEffect(() => {
         
-
-        let stopID = trainStops[stop.stopLine][stop.stopName.toLowerCase()][0];
-
-        // some brown line stops have no second station
-        let stopIDS = trainStops[stop.stopLine][stop.stopName.toLowerCase()][1];
-
-
         const getTrainDataFromExpress = (stopID) => {
-            console.log(stopID);
+            //console.log(stopID);
             Axios.get(`https://cta-api-heroku.herokuapp.com/train/${stopID}`)
                 .then(
                     (response) => {
@@ -88,6 +155,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
 
         // easier to do south data in separate function
         const getSouthTrainDataFromExpress = (stopIDS) => {
+            //console.log(stopIDS);
             Axios.get(`https://cta-api-heroku.herokuapp.com/train/${stopIDS}`)
                 .then(
                     (response) => {
@@ -103,8 +171,8 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
 
         // might need to define functions within the useEffect
         async function setData() {
-            await getTrainDataFromExpress(stopID);
-            await getSouthTrainDataFromExpress(stopIDS);
+            await getTrainDataFromExpress(stop.stopID);
+            await getSouthTrainDataFromExpress(stop.stopIDS);
         }
         
         setData();
@@ -125,8 +193,8 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
                 variant="body2"
                 style={{marginLeft: 15}}
             >
-                {topDest}: {trainData}<br/>
-                {botDest}: {southTrainData}<br/>
+                Northbound Arrival: {trainData}<br/>
+                Southbound Arrival: {southTrainData}<br/>
                 Line: {stop.stopLine}
             </Typography>
             <IconButton onClick={handleRemoveClick}>

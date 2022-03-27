@@ -6,15 +6,10 @@ require("dotenv");
 // require config file
 const config = require("./src/config.js");
 
-// also needs to be enabled for deployment
-//const key = process.env.TT_API_KEY;
-
-//for testing
-const key = config.TT_API_KEY;
-
-// need to change for deployment server to process.env
-//console.log(`Listening on port ${config.PORT}`);
-//console.log(`Host is ${config.HOST}`);
+const key = process.env.TT_API_KEY;
+//console.log(key);
+console.log(`Listening on port ${process.env.PORT}`);
+console.log(`Host is ${process.env.HOST}`);
 
 // our access to express
 const app = express();
@@ -25,12 +20,11 @@ app.get('/ping', function (req, res) {
     return res.send('pong');
 });
 
-
+//const key = config.TT_API_KEY;
 
 // fix CORS issue
 const cors = require('cors');
-// cors config for deployment
-/*
+
 const corsOptions = {
     origin: "https://cta-react-heroku.herokuapp.com",
     optionsSuccessStatus:200
@@ -38,19 +32,19 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.options("*", cors());
-*/
+
 // this allows calls from localhost:3000
 // fireship CORS video for context
-app.use(cors({ origin: 'http://localhost:3000'}));
+//app.use(cors({ origin: 'http://localhost:3000'}));
 
 //show that server is up and running
-
+/*
 app.listen(config.PORT, config.HOST, () => {
     console.log(`App listening on http://${config.HOST}:${config.PORT}`);
 });
-
+*/
 // heroku config?
-app.listen(config.PORT || 4001);
+app.listen(process.env.PORT || 4000);
 
 // creating a GET route
 app.get('/express_backend', (req, res) => {
