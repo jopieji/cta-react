@@ -8,15 +8,10 @@ import trainStops from "../stopData";
 function Stop({ stop, stops, removeStop, setTimeState }) {
     console.log(stop.stopName);
     console.log(stop.stopLine);
-    try {
-        stop.stopID = trainStops[stop.stopLine][stop.stopName.toLowerCase()][0];
-    } catch {
-        console.log("North stop doesn't exist");
-        // remove stop if North doesn't exist because every stop
-        // has at least 1 location
-        //removeStop(stop.id);
-    }
 
+    stop.stopID = trainStops[stop.stopLine][stop.stopName.toLowerCase()][0];
+
+    // some brown line stops have no second station
     try {
         stop.stopIDS = trainStops[stop.stopLine][stop.stopName.toLowerCase()][1];
     } catch {
@@ -30,10 +25,10 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
 
     let topDest = "Northbound";
     let botDest = "Southbound";
-    if (stop.stopLine == "red") { 
+    if (stop.stopLine === "red") { 
         topDest = "Howard";
         botDest = "95th/Dan Ryan";
-    } else if (stop.stopLine == "brown") {
+    } else if (stop.stopLine === "brown") {
         topDest = "Kimball";
         botDest = "Loop";
     }
@@ -80,6 +75,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
     useEffect(() => {
         
         const getTrainDataFromExpress = (stopID) => {
+            console.log(stopID);
             Axios.get(`https://cta-api-heroku.herokuapp.com/train/${stopID}`)
                 .then(
                     (response) => {
