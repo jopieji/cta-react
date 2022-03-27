@@ -9,11 +9,11 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
     console.log(stop.stopName);
     console.log(stop.stopLine);
 
-    stop.stopID = trainStops[stop.stopLine][stop.stopName.toLowerCase()][0];
+    stopID = trainStops[stop.stopLine][stop.stopName.toLowerCase()][0];
 
     // some brown line stops have no second station
     try {
-        stop.stopIDS = trainStops[stop.stopLine][stop.stopName.toLowerCase()][1];
+        stopIDS = trainStops[stop.stopLine][stop.stopName.toLowerCase()][1];
     } catch {
         console.log("South stop doesn't exist");
     }
@@ -105,8 +105,8 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
 
         // might need to define functions within the useEffect
         async function setData() {
-            await getTrainDataFromExpress(stop.stopID);
-            await getSouthTrainDataFromExpress(stop.stopIDS);
+            await getTrainDataFromExpress(stopID);
+            await getSouthTrainDataFromExpress(stopIDS);
         }
         
         setData();
