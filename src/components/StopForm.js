@@ -25,14 +25,14 @@ function StopForm({ addStop, updateLine, line }) {
     });
 
     function handleStopInputChange(e) {
-        setStop( {...stop, stopName: e.target.value, stopID: getStopID(stop), stopLine:line});
+        setStop({...stop, stopName: e.target.value, stopLine: line});
     }
 
     function handleSubmit(e) {
         e.preventDefault();
         if (stop.stopName.trim()) {
             // these started in opposite order: might need to change em back
-            setStop({ ...stop, stopID: getStopID(stop), stopLine:line});
+            setStop({ ...stop, stopID: getStopID(stop), stopLine: line});
             addStop({ ...stop, id: v4()});
         }
     }
