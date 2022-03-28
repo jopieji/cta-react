@@ -13,6 +13,7 @@
 
 # config
 src/config.js
+config.js
 
 # misc
 .DS_Store

@@ -17,7 +17,7 @@ function StopForm({ addStop, updateLine, line }) {
     });
 
     function handleStopInputChange(e) {
-        setStop( {...stop, stopName: e.target.value, stopID:"", stopLine:line});
+        setStop( {...stop, stopName: e.target.value});
     }
 
     function handleSubmit(e) {

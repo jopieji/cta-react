@@ -4,7 +4,7 @@ const axios = require('axios');
 require("dotenv");
 
 // require config file
-const config = require("./src/config.js");
+const config = require("./config.js");
 
 // also needs to be enabled for deployment
 //const key = process.env.TT_API_KEY;
@@ -50,7 +50,7 @@ app.listen(config.PORT, config.HOST, () => {
 });
 
 // heroku config?
-app.listen(config.PORT || 4001);
+app.listen(config.PORT || 5000);
 
 // creating a GET route
 app.get('/express_backend', (req, res) => {
@@ -59,10 +59,12 @@ app.get('/express_backend', (req, res) => {
 // Can check if working: http://localhost:5000/express_backend
 
 // test
+/*
 app.get('/api', (req, res) => {
     console.log(getTrainUrl());
     //res.json({ trainURL: getTrainUrl() });
 });
+*/
 
 // env test
 app.get('/envTest', (req, res) => {

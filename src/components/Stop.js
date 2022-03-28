@@ -7,6 +7,10 @@ import trainStops from "../stopData";
 
 function Stop({ stop, stops, removeStop, setTimeState }) {
 
+    const stopIDTry = 30173;
+
+    /*
+    THIS IS ALL BROKEN
     try {
         stop.stopID = trainStops[stop.stopLine][stop.stopName.toLowerCase()][0];
     } catch {
@@ -21,6 +25,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
     } catch {
         console.log("South stop doesn't exist");
     }
+    */
 
     // state for API calls
     // using these to store minutes
@@ -60,26 +65,16 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
         }
     }
 
-    // determines and sets destination station for each line
-    const setDestinationStation = (res) => {
-        // get destination station
-        let destination = res.data.data.ctatt.eta[0].destSt;
-        console.log(destination);
-
-    }
-
-
     // useEffect to update the time when component mounts;
     // need to check if it isMounted before updating state in useEffect()
     useEffect(() => {
-        
+
         const getTrainDataFromExpress = (stopID) => {
-            Axios.get(`https://cta-api-heroku.herokuapp.com/train/${stopID}`)
+            Axios.get(`/train/${stopID}`)
                 .then(
                     (response) => {
                         // set mins to arrival
                         setTrainData(calcMins(response));
-                        console.log(`N Dest station: ${setDestinationStation(response)}`);
                     }
                 )
                 .catch(err => {
@@ -90,7 +85,8 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
         // easier to do south data in separate function
         const getSouthTrainDataFromExpress = (stopIDS) => {
             //console.log(stopIDS);
-            Axios.get(`https://cta-api-heroku.herokuapp.com/train/${stopIDS}`)
+            // "https://cta-api-heroku.herokuapp.com"
+            Axios.get(`/train/${stopIDS}`)
                 .then(
                     (response) => {
                         // set mins to arrival
@@ -105,8 +101,8 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
 
         // might need to define functions within the useEffect
         async function setData() {
-            await getTrainDataFromExpress(stop.stopID);
-            await getSouthTrainDataFromExpress(stop.stopIDS);
+            await getTrainDataFromExpress(30173);
+            await getSouthTrainDataFromExpress(30173);
         }
         
         setData();
