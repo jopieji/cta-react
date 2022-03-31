@@ -17,7 +17,7 @@ function StopForm({ addStop, updateLine, line }) {
     });
 
     function handleStopInputChange(e) {
-        setStop( {...stop, stopName: e.target.value});
+        setStop( {...stop, stopName: e.target.value} );
     }
 
     function handleSubmit(e) {
@@ -46,7 +46,6 @@ function StopForm({ addStop, updateLine, line }) {
             >Submit</Button>
             <Form.Control
                 as="select"
-                custom
                 onChange={lineSwitch}
                 style={{ color: "#1c87c9", border: "0px", padding: "7px" }}
             >
