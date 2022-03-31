@@ -7,8 +7,12 @@ import trainStops from "../stopData";
 
 function Stop({ stop, stops, removeStop, setTimeState }) {
 
-    const stopIDTry = 30173;
+    console.log(trainStops);
 
+    const stopIDN = trainStops['trainStops'][stop.stopLine][stop.stopName.toLowerCase()][0];
+    const stopIDS = trainStops['trainStops'][stop.stopLine][stop.stopName.toLowerCase()][1];
+    console.log(stopIDN);
+    console.log(stopIDS);
     /*
     THIS IS ALL BROKEN
     try {
@@ -69,8 +73,8 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
     // need to check if it isMounted before updating state in useEffect()
     useEffect(() => {
 
-        const getTrainDataFromExpress = (stopID) => {
-            Axios.get(`/train/${stopID}`)
+        const getTrainDataFromExpress = (stopIDN) => {
+            Axios.get(`/train/${stopIDN}`)
                 .then(
                     (response) => {
                         // set mins to arrival
@@ -101,10 +105,9 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
 
         // might need to define functions within the useEffect
         async function setData() {
-            await getTrainDataFromExpress(30173);
-            await getSouthTrainDataFromExpress(30173);
+            await getTrainDataFromExpress(stopIDN);
+            await getSouthTrainDataFromExpress(stopIDS);
         }
-        
         setData();
         setTimeState();
         

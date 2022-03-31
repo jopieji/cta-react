@@ -6,25 +6,27 @@ import { v4 } from "uuid";
 import { Button, TextField } from "@material-ui/core";
 import { Form } from "react-bootstrap";
 
+import trainData from '../stopData';
+
 
 function StopForm({ addStop, updateLine, line }) {
 
     const [stop, setStop] = useState({
         id: "",
         stopName: "",
-        stopID: "",
         stopLine: ""
     });
 
+    // need to update both name and stopLine on input change to make line correct
     function handleStopInputChange(e) {
-        setStop( {...stop, stopName: e.target.value, stopLine: line} );
+        setStop( {...stop, stopName: e.target.value, stopLine: line});
     }
 
     function handleSubmit(e) {
         e.preventDefault();
         if (stop.stopName.trim()) {
             addStop({ ...stop, id: v4()});
-            setStop({ ...stop, stopName:"" , stopID:"", stopLine:line });
+            setStop({ ...stop, stopLine: line });
         }
     }
 
