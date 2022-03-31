@@ -15,8 +15,8 @@ function App() {
 
   const [ stops, setStops ] = useState([]);
   const [ time, setTime ] = useState([]);
-  // need it both in stopForm and stop
-  const [ line, setLine ] = useState('red');
+  // need line both in stopForm and stop
+  const [ line, setLine ] = useState("red");
 
   useEffect(() => {
     const storageStops = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));

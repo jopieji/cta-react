@@ -17,14 +17,14 @@ function StopForm({ addStop, updateLine, line }) {
     });
 
     function handleStopInputChange(e) {
-        setStop( {...stop, stopName: e.target.value} );
+        setStop( {...stop, stopName: e.target.value, stopLine: line} );
     }
 
     function handleSubmit(e) {
         e.preventDefault();
         if (stop.stopName.trim()) {
             addStop({ ...stop, id: v4()});
-            setStop({ ...stop, stopName:"" , stopID:"", stopLine:line});
+            setStop({ ...stop, stopName:"" , stopID:"", stopLine:line });
         }
     }
 
