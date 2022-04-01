@@ -116,8 +116,8 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
     return (
         <ListItem style={{ display: "flex" }}>
             <Typography
-                variant="body1"
-                style={{ color: stop.stopLine }}
+                variant="h6"
+                style={{ color: stop.stopLine, textDecoration: "bold" }}
             >
                 {stop.stopName}
             </Typography>
@@ -128,7 +128,6 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
             >
                 Northbound Arrival: {trainData}<br/>
                 Southbound Arrival: {southTrainData}<br/>
-                Line: {stop.stopLine}
             </Typography>
             <IconButton onClick={handleRemoveClick}>
                 <CloseIcon />    
