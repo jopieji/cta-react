@@ -4,12 +4,11 @@
 import React, { useState } from 'react';
 import { v4 } from "uuid";
 import { Button, TextField } from "@material-ui/core";
+import { Refresh } from "@material-ui/icons";
 import { Form } from "react-bootstrap";
 
-import trainData from '../stopData';
 
-
-function StopForm({ addStop, updateLine, line }) {
+function StopForm({ addStop, updateLine, line, toggleRefresh }) {
 
     const [stop, setStop] = useState({
         id: "",
@@ -54,7 +53,12 @@ function StopForm({ addStop, updateLine, line }) {
                 <option value="red">Red</option>
                 <option value="brown">Brown</option> 
             </Form.Control>
-   
+            <Button type="submit"
+                    onClick={toggleRefresh}
+            >
+                Refresh
+            </Button>
+
         </form>
     );
 }

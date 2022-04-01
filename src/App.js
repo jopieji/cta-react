@@ -17,6 +17,8 @@ function App() {
   const [ time, setTime ] = useState([]);
   // need line both in stopForm and stop
   const [ line, setLine ] = useState("red");
+  // state for refresh button; need in stopForm
+  const [ refresh, setRefresh ] = useState(true);
 
   useEffect(() => {
     const storageStops = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
@@ -58,6 +60,12 @@ function App() {
     setTime(time);
   }
 
+  function toggleRefresh() {
+    console.log(refresh);
+    setRefresh(refresh === true ? false : true);
+    console.log(refresh);
+  }
+
 
   return (
     <div className="App">
@@ -76,9 +84,11 @@ function App() {
         addStop={addStop}
         updateLine={updateLine}
         line={line}
+        toggleRefresh={toggleRefresh}
       />
       <StopList
         stops={stops}
+        refresh={refresh}
         line={line}
         removeStop={removeStop}
         setTimeState={setTimeState}

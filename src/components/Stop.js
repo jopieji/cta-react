@@ -5,7 +5,7 @@ import Axios from 'axios';
 
 import trainStops from "../stopData";
 
-function Stop({ stop, stops, removeStop, setTimeState }) {
+function Stop({ stop, stops, removeStop, setTimeState, refresh }) {
 
     console.log(trainStops);
 
@@ -111,7 +111,7 @@ function Stop({ stop, stops, removeStop, setTimeState }) {
         setData();
         setTimeState();
         
-    }, [stops]);
+    }, [stops, refresh]);
 
     return (
         <ListItem style={{ display: "flex" }}>
