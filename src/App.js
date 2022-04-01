@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 // Material UI 
 import Typography from "@material-ui/core/Typography";
+import { Button } from "@material-ui/core";
 
 // components
 import StopList from './components/StopList';
@@ -74,12 +75,20 @@ function App() {
         variant="h2">
           CTA Train Tracker
       </Typography>
-      <Typography
-        style={{ padding: 5, color: "red", justifyContent: "left"}}
-        variant="h5"
-      >
-        Last Request: {time}
-      </Typography>
+      <div>
+        <Typography
+          style={{ padding: 5, color: "red", justifyContent: "left", display:"inline-flex"}}
+          variant="h5"
+        >
+          Last Request: {time}
+        </Typography>
+        <Button type="submit"
+            style={{padding: 5, color: "#054988", display:"inline-flex"}}
+            onClick={toggleRefresh}
+        >
+          Refresh
+        </Button>
+      </div>
       <StopForm 
         addStop={addStop}
         updateLine={updateLine}
