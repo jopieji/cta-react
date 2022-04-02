@@ -57,7 +57,7 @@ function Stop({ stop, stops, removeStop, setTimeState, refresh }) {
     useEffect(() => {
 
         const getTrainDataFromExpress = (stopIDN) => {
-            Axios.get(`https://cta-api-heroku.herokuapp.com/train/${stopIDN}`)
+            Axios.get(`https://cta-api-separate.herokuapp.com/train/${stopIDN}`)
                 .then(
                     (response) => {
                         // set mins to arrival
@@ -73,7 +73,7 @@ function Stop({ stop, stops, removeStop, setTimeState, refresh }) {
         const getSouthTrainDataFromExpress = (stopIDS) => {
             //console.log(stopIDS);
             // "https://cta-api-heroku.herokuapp.com"
-            Axios.get(`https://cta-api-heroku.herokuapp.com/train/${stopIDS}`)
+            Axios.get(`https://cta-api-separate.herokuapp.com/train/${stopIDS}`)
                 .then(
                     (response) => {
                         // set mins to arrival
