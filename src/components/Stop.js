@@ -13,23 +13,6 @@ function Stop({ stop, stops, removeStop, setTimeState, refresh }) {
     const stopIDS = trainStops['trainStops'][stop.stopLine][stop.stopName.toLowerCase()][1];
     console.log(stopIDN);
     console.log(stopIDS);
-    /*
-    THIS IS ALL BROKEN
-    try {
-        stop.stopID = trainStops[stop.stopLine][stop.stopName.toLowerCase()][0];
-    } catch {
-        console.log("North stop doesn't exist");
-        // remove stop if North doesn't exist because every stop
-        // has at least 1 location
-        //removeStop(stop.id);
-    }
-
-    try {
-        stop.stopIDS = trainStops[stop.stopLine][stop.stopName.toLowerCase()][1];
-    } catch {
-        console.log("South stop doesn't exist");
-    }
-    */
 
     // state for API calls
     // using these to store minutes
@@ -74,7 +57,7 @@ function Stop({ stop, stops, removeStop, setTimeState, refresh }) {
     useEffect(() => {
 
         const getTrainDataFromExpress = (stopIDN) => {
-            Axios.get(`/train/${stopIDN}`)
+            Axios.get(`https://cta-api-heroku.herokuapp.com/train/${stopIDN}`)
                 .then(
                     (response) => {
                         // set mins to arrival
@@ -90,7 +73,7 @@ function Stop({ stop, stops, removeStop, setTimeState, refresh }) {
         const getSouthTrainDataFromExpress = (stopIDS) => {
             //console.log(stopIDS);
             // "https://cta-api-heroku.herokuapp.com"
-            Axios.get(`/train/${stopIDS}`)
+            Axios.get(`https://cta-api-heroku.herokuapp.com/train/${stopIDS}`)
                 .then(
                     (response) => {
                         // set mins to arrival
