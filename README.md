@@ -8,14 +8,9 @@ This project is going to be a web app that tracks a user's selected CTA trains a
 
 ---
 ### Using for Yourself
-BROKEN RIGHT NOW
-
-I am working hard to fix the deployment. I learned that I shouldn't develop and deploy on the same branch! 
-
-**BROKEN**
 Check it out at [CTA Train Tracker](URL "https://cta-react-heroku.herokuapp.com/")
 
-It was deployed via Heroku, which threw me for a loop initially, but should make CI/CD really easy. Currently, it just uses local storage to store your stops, so you can't have the same data displayed on different machines. I'll fix this at a later date, but didn't want to deal with database configuration on top of making my API work.
+It was deployed via Heroku, which threw me for a loop initially, but should make CI/CD really easy. Currently, it just uses local storage to store your stops, so you can't have the same data displayed on different devices. I'll fix this at a later date, but didn't want to deal with database configuration on top of making my API work.
 
 ---
 ### Technology
@@ -27,9 +22,9 @@ I am going to implement Express and Node.js to 1) gain expereince with these tec
 
 ---
 ### Future Plans
-I might add the CTA Bus Tracker API once I get an MVP up and running. Again, this is subject to change, and I will probably begin working on a Native version before I expand the Web App too much. Making a Native version will help prepare me for my upcoming internship and will work around the notification issue I ran into using Django.
+First, I want to add support for all CTA Train Lines. Building in an optional notification system might also be valueable.
 
-I might use Jotform or Bravo Studio to help make a mobile version of this app. I want to nail down using React before I dive into React Native.
+I might add the CTA Bus Tracker API once I get an MVP up and running. Again, this is subject to change, and I will probably begin working on a Native version before I expand the Web App too much. Making a Native version will help prepare me for my upcoming internship and will work around the notification issue I ran into using Django.
 
 ---
 
