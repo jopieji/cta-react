@@ -7,29 +7,13 @@ import trainStops from "../stopData";
 
 function Stop({ stop, stops, removeStop, setTimeState, refresh }) {
 
-    console.log(trainStops);
-
     const stopIDN = trainStops['trainStops'][stop.stopLine][stop.stopName.toLowerCase()][0];
     const stopIDS = trainStops['trainStops'][stop.stopLine][stop.stopName.toLowerCase()][1];
-    console.log(stopIDN);
-    console.log(stopIDS);
-    /*
-    THIS IS ALL BROKEN
-    try {
-        stop.stopID = trainStops[stop.stopLine][stop.stopName.toLowerCase()][0];
-    } catch {
-        console.log("North stop doesn't exist");
-        // remove stop if North doesn't exist because every stop
-        // has at least 1 location
-        //removeStop(stop.id);
-    }
 
-    try {
-        stop.stopIDS = trainStops[stop.stopLine][stop.stopName.toLowerCase()][1];
-    } catch {
-        console.log("South stop doesn't exist");
-    }
-    */
+
+    // set direction
+    const destN = stop.stopLine === "red" ? "To Howard: " : "To Kimball: ";
+    const destS = stop.stopLine === "red" ? "To 95th / Dan Ryan: " : "To Loop: "; 
 
     // state for API calls
     // using these to store minutes
@@ -126,8 +110,8 @@ function Stop({ stop, stops, removeStop, setTimeState, refresh }) {
                 variant="body2"
                 style={{marginLeft: 15}}
             >
-                Northbound Arrival: {trainData}<br/>
-                Southbound Arrival: {southTrainData}<br/>
+                {destN} {trainData}<br/>
+                {destS} {southTrainData}<br/>
             </Typography>
             <IconButton onClick={handleRemoveClick}>
                 <CloseIcon />    
