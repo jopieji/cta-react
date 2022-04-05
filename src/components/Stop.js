@@ -103,7 +103,7 @@ function Stop({ stop, stops, removeStop, setTimeState, refresh }) {
                 variant="h6"
                 style={{ color: stop.stopLine, textDecoration: "bold" }}
             >
-                {stop.stopName}
+                {stop.stopName.charAt(0).toUpperCase() + stop.stopName.substring(1).toLowerCase()}
             </Typography>
             
             <Typography
