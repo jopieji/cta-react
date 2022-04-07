@@ -7,6 +7,7 @@ import trainStops from "../stopData";
 
 function Stop({ stop, stops, removeStop, setTimeState, refresh }) {
 
+    // get stopID values for Northbound and Southbound Trains
     const stopIDN = trainStops['trainStops'][stop.stopLine][stop.stopName.toLowerCase()][0];
     const stopIDS = trainStops['trainStops'][stop.stopLine][stop.stopName.toLowerCase()][1];
 
