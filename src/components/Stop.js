@@ -5,7 +5,7 @@ import Axios from 'axios';
 
 import trainStops from "../stopData";
 
-function Stop({ stop, stops, removeStop, setTimeState, refresh }) {
+function Stop({ stop, stops, removeStop, setTimeState, refresh, flag }) {
 
     // get stopID values for Northbound and Southbound Trains
     const stopIDN = trainStops['trainStops'][stop.stopLine][stop.stopName.toLowerCase()][0];

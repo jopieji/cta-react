@@ -21,7 +21,14 @@ class ErrorBoundary extends React.Component {
     render() {
       if (this.state.hasError) {
         //this.props.removeStop(this.props.stop.id);
-        return <p>Stop doesn't exist</p>
+        return (
+          <Stop
+            key={this.props.stop.id}
+            stop={this.props.stop}
+            removeStop={this.props.removeStop}
+            flag={true}
+          />
+        );
       }
   
       return this.props.children; 

@@ -7,7 +7,13 @@ import { Button, TextField } from "@material-ui/core";
 import { Form } from "react-bootstrap";
 
 
+// list of stopIDs for erroneous input handling
+import trainStops from "../stopData";
+
 function StopForm({ addStop, updateLine, line }) {
+
+    const redKeys = trainStops['trainStops']['red'];
+    const brownKeys = trainStops['trainStops']['brown'];
 
     const [stop, setStop] = useState({
         id: "",
@@ -22,6 +28,11 @@ function StopForm({ addStop, updateLine, line }) {
 
     function handleSubmit(e) {
         e.preventDefault();
+        if (!redKeys[stop.stopName.toLowerCase()] && !brownKeys[stop.stopName.toLowerCase()]) {
+            console.log("Invalid stop name");
+            return;
+        }
+        
         if (stop.stopName.trim()) {
             addStop({ ...stop, id: v4()});
             setStop({ ...stop, stopLine: line });
