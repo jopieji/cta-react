@@ -5,14 +5,16 @@ import Axios from 'axios';
 
 import trainStops from "../stopData";
 
-function Stop({ stop, stops, removeStop, setTimeState, refresh }) {
+function Stop({ stop, stops, removeStop, setTimeState, refresh, flag }) {
 
-    console.log(trainStops);
-
+    // get stopID values for Northbound and Southbound Trains
     const stopIDN = trainStops['trainStops'][stop.stopLine][stop.stopName.toLowerCase()][0];
     const stopIDS = trainStops['trainStops'][stop.stopLine][stop.stopName.toLowerCase()][1];
-    console.log(stopIDN);
-    console.log(stopIDS);
+
+
+    // set direction
+    const destN = stop.stopLine === "red" ? "To Howard: " : "To Kimball: ";
+    const destS = stop.stopLine === "red" ? "To 95th / Dan Ryan: " : "To Loop: "; 
 
     // state for API calls
     // using these to store minutes
@@ -102,15 +104,15 @@ function Stop({ stop, stops, removeStop, setTimeState, refresh }) {
                 variant="h6"
                 style={{ color: stop.stopLine, textDecoration: "bold" }}
             >
-                {stop.stopName}
+                {stop.stopName.charAt(0).toUpperCase() + stop.stopName.substring(1).toLowerCase()}
             </Typography>
             
             <Typography
                 variant="body2"
                 style={{marginLeft: 15}}
             >
-                Northbound Arrival: {trainData}<br/>
-                Southbound Arrival: {southTrainData}<br/>
+                {destN} {trainData}<br/>
+                {destS} {southTrainData}<br/>
             </Typography>
             <IconButton onClick={handleRemoveClick}>
                 <CloseIcon />    

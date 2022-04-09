@@ -77,13 +77,13 @@ function App() {
       </Typography>
       <div>
         <Typography
-          style={{ padding: 5, color: "red", justifyContent: "left", display:"inline-flex"}}
+          style={{ padding: 5, color: "red", justifyContent: "left", display:"inline-flex" }}
           variant="h5"
         >
           Last Request: {time}
         </Typography>
         <Button type="submit"
-            style={{padding: 5, color: "#054988", display:"inline-flex"}}
+            style={{ padding: 5, color: "#054988", display:"inline-flex" }}
             onClick={toggleRefresh}
         >
           Refresh
