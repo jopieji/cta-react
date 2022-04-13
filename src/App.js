@@ -71,7 +71,7 @@ function App() {
   return (
     <div className="App">
       <Typography 
-        style={{ padding: 16, color: "#054988" }} 
+        style={{ padding: 12, color: "#054988" }} 
         variant="h2">
           CTA Train Tracker
       </Typography>
