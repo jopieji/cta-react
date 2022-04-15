@@ -27,6 +27,7 @@ function StopForm({ addStop, updateLine, line }) {
         setStop( {...stop, stopName: e.target.value, stopLine: line, fieldVal: e.target.value});
     }
 
+    // clears stop data to prevent dupe inputs and line switch errors
     function hSICSwitch() {
         setStop( {...stop, stopName: "", stopLine: line, fieldVal: "" });
     }
