@@ -15,8 +15,6 @@ function StopForm({ addStop, updateLine, line }) {
     const redKeys = trainStops['trainStops']['red'];
     const brownKeys = trainStops['trainStops']['brown'];
 
-    const [ field, setField ] = useState();
-
     const [stop, setStop] = useState({
         id: "",
         stopName: "",
@@ -27,6 +25,10 @@ function StopForm({ addStop, updateLine, line }) {
     // need to update both name and stopLine on input change to make line correct
     function handleStopInputChange(e) {
         setStop( {...stop, stopName: e.target.value, stopLine: line, fieldVal: e.target.value});
+    }
+
+    function hSICSwitch() {
+        setStop( {...stop, stopName: "", stopLine: line, fieldVal: "" });
     }
 
     function handleSubmit(e) {
@@ -42,11 +44,12 @@ function StopForm({ addStop, updateLine, line }) {
             addStop({ ...stop, id: v4()});
             setStop({ ...stop, stopLine: line, fieldVal: "" });
         }
-        stop.stopName = "";
+        hSICSwitch();
     }
 
     function lineSwitch(e) {
         updateLine(e.target.value);
+        hSICSwitch();
     }
 
     return (

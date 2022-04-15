@@ -47,6 +47,5 @@
     ]
   },
   "author": "Jake Opie",
-  "license": "MIT",
-  "proxy": "http://localhost:4000"
+  "license": "MIT"
 }
