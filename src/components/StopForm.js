@@ -15,28 +15,34 @@ function StopForm({ addStop, updateLine, line }) {
     const redKeys = trainStops['trainStops']['red'];
     const brownKeys = trainStops['trainStops']['brown'];
 
+    const [ field, setField ] = useState();
+
     const [stop, setStop] = useState({
         id: "",
         stopName: "",
-        stopLine: ""
+        stopLine: "",
+        fieldVal: ""
     });
 
     // need to update both name and stopLine on input change to make line correct
     function handleStopInputChange(e) {
-        setStop( {...stop, stopName: e.target.value, stopLine: line});
+        setStop( {...stop, stopName: e.target.value, stopLine: line, fieldVal: e.target.value});
     }
 
     function handleSubmit(e) {
+        const keys = stop.stopLine === "red" ? redKeys : brownKeys;
         e.preventDefault();
-        if (!redKeys[stop.stopName.toLowerCase()] && !brownKeys[stop.stopName.toLowerCase()]) {
+        if (!keys[stop.stopName.toLowerCase()]) {
             console.log("Invalid stop name");
+            setStop({...stop, fieldVal: ""});
             return;
         }
         
         if (stop.stopName.trim()) {
             addStop({ ...stop, id: v4()});
-            setStop({ ...stop, stopLine: line });
+            setStop({ ...stop, stopLine: line, fieldVal: "" });
         }
+        stop.stopName = "";
     }
 
     function lineSwitch(e) {
@@ -49,7 +55,7 @@ function StopForm({ addStop, updateLine, line }) {
                 label="Stop"
                 name="stopName"
                 type="text"
-                value={stop.stopName}
+                value={stop.fieldVal}
                 onChange={handleStopInputChange}
             />
             <Button type="submit"
