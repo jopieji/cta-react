@@ -14,6 +14,7 @@ function StopForm({ addStop, updateLine, line }) {
 
     const redKeys = trainStops['trainStops']['red'];
     const brownKeys = trainStops['trainStops']['brown'];
+    const blueKeys = trainStops['trainStops']['blue'];
 
     const [stop, setStop] = useState({
         id: "",
@@ -33,7 +34,15 @@ function StopForm({ addStop, updateLine, line }) {
     }
 
     function handleSubmit(e) {
-        const keys = stop.stopLine === "red" ? redKeys : brownKeys;
+        //const keys = stop.stopLine === "red" ? redKeys : brownKeys;
+        let keys;
+        if (stop.stopLine === "red") {
+            keys = redKeys;
+        } else if (stop.stopLine === "brown") {
+            keys = brownKeys;
+        } else {
+            keys = blueKeys;
+        }
         e.preventDefault();
         if (!keys[stop.stopName.toLowerCase()]) {
             console.log("Invalid stop name");
@@ -72,6 +81,7 @@ function StopForm({ addStop, updateLine, line }) {
             >
                 <option value="red">Red</option>
                 <option value="brown">Brown</option> 
+                <option value="blue">Blue</option>
             </Form.Control>
         </form>
     );

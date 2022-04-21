@@ -77,7 +77,6 @@ const trainStops = {
         "jefferson": [30248, 30247],
         "cicero": [30188, 30187],
         "grand/milwaukee": [30095, 30094],
-        "division": [30063, 30062],
         "monroe": [30154, 30153],
         "clinton": [30085, 30084],
         "chicago": [30272, 30271],

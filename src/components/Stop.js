@@ -13,8 +13,22 @@ function Stop({ stop, stops, removeStop, setTimeState, refresh, flag }) {
 
 
     // set direction
-    const destN = stop.stopLine === "red" ? "To Howard: " : "To Kimball: ";
-    const destS = stop.stopLine === "red" ? "To 95th / Dan Ryan: " : "To Loop: "; 
+    //const destN = stop.stopLine === "red" ? "To Howard: " : "To Kimball: ";
+    //const destS = stop.stopLine === "red" ? "To 95th / Dan Ryan: " : "To Loop: "; 
+
+    let destN = "";
+    let destS = "";
+
+    if (stop.stopLine === "red") {
+        destN = "To Howard: ";
+        destS = "To 95th/Dan Ryan: ";
+    } else if (stop.stopLine === "brown") {
+        destN = "To Kimball: ";
+        destS = "To Loop: ";
+    } else if (stop.stopLine === "blue") {
+        destN = "To Forest Park: ";
+        destS = "To O'Hare";
+    }
 
     // state for API calls
     // using these to store minutes
