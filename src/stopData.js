@@ -65,6 +65,45 @@ const trainStops = {
         'quincy': [30008, 'S'],
         'washington/wabash': [30383, 'S'],
         'washington/wells': [30142, 'S']
+    },
+    // forest park bound first
+    // should probably flip these
+    blue: {
+        "o'hare": [30172, 30171],
+        "rosemont": [30160, 30159],
+        "racine": [30093, 30092],
+        "forest park": [30077, 30076],
+        "pulaski": [30180, 30179],
+        "jefferson": [30248, 30247],
+        "cicero": [30188, 30187],
+        "grand/milwaukee": [30095, 30094],
+        "division": [30063, 30062],
+        "monroe": [30154, 30153],
+        "clinton": [30085, 30084],
+        "chicago": [30272, 30271],
+        "cumberland": [30045, 30044],
+        "montrose": [30260, 30259],
+        "harlem": [30146, 30145],
+        "damen/milwaukee": [30117, 30116],
+        "uic-halsted": [30069, 30068],
+        "california": [30112, 30111],
+        "illinois medical district": [30158, 30157],
+        "oak park": [30035, 30034],
+        "harlem forest park": [30190, 30189],
+        "logan square": [30198, 30197],
+        "irving park": [30108, 30107],
+        "clark/lake": [30376, 30375],
+        "jefferson park": [30248, 30247],
+        "western forest park": [30043, 30042],
+        "kedzie-homan": [30049, 30048],
+        "washington": [30073, 30072],
+        "addison": [30240, 30239],
+        "lasalle": [30262, 30261],
+        "jackson/dearborn": [30015, 30014],
+        "division": [30063, 30062], 
+        "austin": [30002, 30001],
+        "belmont": [30013, 30012],
+
     }
 }
 
