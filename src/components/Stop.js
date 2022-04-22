@@ -11,11 +11,6 @@ function Stop({ stop, stops, removeStop, setTimeState, refresh, flag }) {
     const stopIDN = trainStops['trainStops'][stop.stopLine][stop.stopName.toLowerCase()][0];
     const stopIDS = trainStops['trainStops'][stop.stopLine][stop.stopName.toLowerCase()][1];
 
-
-    // set direction
-    //const destN = stop.stopLine === "red" ? "To Howard: " : "To Kimball: ";
-    //const destS = stop.stopLine === "red" ? "To 95th / Dan Ryan: " : "To Loop: "; 
-
     let destN = "";
     let destS = "";
 
@@ -38,6 +33,16 @@ function Stop({ stop, stops, removeStop, setTimeState, refresh, flag }) {
     // function to remove a stop
     function handleRemoveClick() {
         removeStop(stop.id);
+    }
+
+    function formatStopName() {
+        let str = stop.stopName.toLowerCase();
+        let ind = stop.stopName.search("/");
+        if (ind != -1) {
+            let ch = str.charAt(ind + 1).toUpperCase();
+            str = str.substring(0, ind + 1) + ch + str.substring(ind + 2);
+        }
+        return str.charAt(0).toUpperCase() + str.substring(1);
     }
 
     // calculates minutes to arrival
@@ -118,7 +123,7 @@ function Stop({ stop, stops, removeStop, setTimeState, refresh, flag }) {
                 variant="h6"
                 style={{ color: stop.stopLine, textDecoration: "bold" }}
             >
-                {stop.stopName.charAt(0).toUpperCase() + stop.stopName.substring(1).toLowerCase()}
+                {formatStopName()}
             </Typography>
             
             <Typography
