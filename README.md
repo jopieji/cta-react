@@ -4,13 +4,15 @@
 ---
 
 ### Overview
-This project is going to be a web app that tracks a user's selected CTA trains and buses, and provides browser notifications to let the user know when their train or bus is coming. This app will hopefully be useful to someone, as I am not sure there is a browser-based CTA tracker out right now. The browser notifications will be perfect for students, who so often have many many tabs open and might forget to keep an eye on when their bus/train might show up!
+This project is going to be a web app that tracks a user's selected CTA trains and buses and provides real time data on when they will arrive. Hopefully, this app will be useful to someone, as I am not sure there is a browser-based CTA tracker out right now.
+
+It currently supports the Red, Brown, Blue, and Orange Lines.
 
 ---
 ### Using for Yourself
 Check it out at [CTA Train Tracker](https://cta-react-heroku.herokuapp.com/)
 
-It was deployed via Heroku, which threw me for a loop initially, but should make CI/CD really easy. Currently, it just uses local storage to store your stops, so you can't have the same data displayed on different devices. I'll fix this at a later date, but didn't want to deal with database configuration on top of making my API work.
+It was deployed via Heroku, which threw me for a loop initially, but should make CI/CD really easy. Currently, it just uses local storage to store your stops, so you won't have the same data displayed on different devices. I'll fix this at a later date, but didn't want to deal with database configuration on top of making my API work.
 
 ---
 ### Technology
