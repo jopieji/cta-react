@@ -103,6 +103,24 @@ const trainStops = {
         "austin": [30002, 30001],
         "belmont": [30013, 30012],
 
+    },
+    orange: {
+        "kedzie": [30219, 30220],
+        "lasalle/van buren": [30031, "S"],
+        "35th/archer": [30022, 30023],
+        "harold washington library": [30166, "S"],
+        "adams/wabash": [30132, "S"],
+        "ashland": [30205, 30206],
+        "halsted": [30215, 30216],
+        "western": [30060, 30061],
+        "clark/lake": [30074, "S"],
+        "quincy/wells": [30007, "S"],
+        "pulaski": [30185, 30186],
+        "roosevelt": [30080, 30081],
+        "midway": [30182, "S"],
+        "state/lake": [30050, 'S'],
+        "washington/wabash": [30384, "S"],
+        "washington/wells": [30141, "S"]
     }
 }
 

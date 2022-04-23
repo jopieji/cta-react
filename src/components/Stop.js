@@ -23,6 +23,9 @@ function Stop({ stop, stops, removeStop, setTimeState, refresh, flag }) {
     } else if (stop.stopLine === "blue") {
         destN = "To Forest Park: ";
         destS = "To O'Hare";
+    } else if (stop.stopLine == "orange") {
+        destN = "To Loop: ";
+        destS = "To Midway: ";
     }
 
     // state for API calls

@@ -82,6 +82,7 @@ function StopForm({ addStop, updateLine, line }) {
                 <option value="red">Red</option>
                 <option value="brown">Brown</option> 
                 <option value="blue">Blue</option>
+                <option value="orange">Orange</option>
             </Form.Control>
         </form>
     );
