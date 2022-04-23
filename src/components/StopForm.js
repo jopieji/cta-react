@@ -72,12 +72,12 @@ function StopForm({ addStop, updateLine, line }) {
                 onChange={handleStopInputChange}
             />
             <Button type="submit"
-                style={{color: "#e60000"}}
+                style={{color: line}}
             >Submit</Button>
             <Form.Control
                 as="select"
                 onChange={lineSwitch}
-                style={{ color: "#1c87c9", border: "0px", padding: "7px" }}
+                style={{ color: line, border: "0px", padding: "7px" }}
             >
                 <option value="red">Red</option>
                 <option value="brown">Brown</option> 
