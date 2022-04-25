@@ -22,7 +22,7 @@ function Stop({ stop, stops, removeStop, setTimeState, refresh, flag }) {
         destS = "To Loop: ";
     } else if (stop.stopLine === "blue") {
         destN = "To Forest Park: ";
-        destS = "To O'Hare";
+        destS = "To O'Hare: ";
     } else if (stop.stopLine === "orange") {
         destN = "To Loop: ";
         destS = "To Midway: ";
