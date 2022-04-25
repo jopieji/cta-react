@@ -23,9 +23,15 @@ function Stop({ stop, stops, removeStop, setTimeState, refresh, flag }) {
     } else if (stop.stopLine === "blue") {
         destN = "To Forest Park: ";
         destS = "To O'Hare";
-    } else if (stop.stopLine == "orange") {
+    } else if (stop.stopLine === "orange") {
         destN = "To Loop: ";
         destS = "To Midway: ";
+    } else if (stop.stopLine === "pink") {
+        destN = "To Loop: ";
+        destS = "To 54th/Cermak: ";
+    } else if (stop.stopLine === "purple") {
+        destN = "To Linden: ";
+        destS = "To Loop: ";
     }
 
     // state for API calls

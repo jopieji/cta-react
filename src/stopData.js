@@ -121,6 +121,42 @@ const trainStops = {
         "state/lake": [30050, 'S'],
         "washington/wabash": [30384, "S"],
         "washington/wells": [30141, "S"]
+    },
+    purple: {
+        "dempster": [30134, 30133],
+        "linden": [30204, 30203],
+        "davis": [30011, 30010],
+        "central": [30242, 30241],
+        "main": [30053, 30052],
+        "noyes": [30079, 30078],
+        "south": [30164, 30163],
+        "howard": [30176, 20999],
+        "foster": [30100, 30101],
+    },
+    pink: {
+        "54th/cermak": [30113, "L"],
+        "cicero": [30082, 30083],
+        "kostner": [30117, 30118],
+        "pulaski": [30028, 30029],
+        "central park": [30151, 30152],
+        "kedzie": [30201, 30202],
+        "california": [30086, 30087],
+        "western": [30143, 30144],
+        "damen": [30040, 30041],
+        "18th": [30161, 30162],
+        "polk": [30199, 30200],
+        "ashland": [30032, 30033],
+        "clinton": [30221, 30222],
+        "clark/lake": [30074, "I"],
+        "state/lake": [30050, "I"],
+        "adams/wabash": [30132, "I"],
+        "harold washington library": [30166, "I"],
+        "lasalle/van buren": [30031, "I"],
+        "quincy/wells": [30007, "I"],
+        "washington/wells": [30141, "I"],
+        "morgan": [30295, 30296],
+        "washington/wabash": [30384, "I"],
+
     }
 }
 
