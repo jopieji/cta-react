@@ -13,25 +13,32 @@ function Stop({ stop, stops, removeStop, setTimeState, refresh, flag }) {
 
     let destN = "";
     let destS = "";
+    let colorOfText = "black";
 
     if (stop.stopLine === "red") {
         destN = "To Howard: ";
         destS = "To 95th/Dan Ryan: ";
+        colorOfText = "red";
     } else if (stop.stopLine === "brown") {
         destN = "To Kimball: ";
         destS = "To Loop: ";
+        colorOfText = "brown";
     } else if (stop.stopLine === "blue") {
         destN = "To Forest Park: ";
         destS = "To O'Hare: ";
+        colorOfText = "#3a81ff";
     } else if (stop.stopLine === "orange") {
         destN = "To Loop: ";
         destS = "To Midway: ";
+        colorOfText = "#ff821a";
     } else if (stop.stopLine === "pink") {
         destN = "To Loop: ";
         destS = "To 54th/Cermak: ";
+        colorOfText = "#ff5df4";
     } else if (stop.stopLine === "purple") {
         destN = "To Linden: ";
         destS = "To Loop: ";
+        colorOfText = "#6a24ff";
     }
 
     // state for API calls
@@ -130,7 +137,7 @@ function Stop({ stop, stops, removeStop, setTimeState, refresh, flag }) {
         <ListItem style={{ display: "flex" }}>
             <Typography
                 variant="h6"
-                style={{ color: stop.stopLine, textDecoration: "bold" }}
+                style={{ color: colorOfText, textDecoration: "bold" }}
             >
                 {formatStopName()}
             </Typography>
