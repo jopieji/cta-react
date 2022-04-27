@@ -70,6 +70,23 @@ function StopForm({ addStop, updateLine, line }) {
         updateLine(e.target.value);
         hSICSwitch();
     }
+    /*
+    function getColor() {
+        if (stop.stopLine === "red") {
+            return "red";
+        } else if (stop.stopLine === "brown") {
+            return "brown";
+        } else if (stop.stopLine === "blue") {
+            return "#3a81ff";
+        } else if (stop.stopLine === "orange") {
+            return "#ff821a";
+        } else if (stop.stopLine === "purple") {
+            return "#6a24ff";
+        } else if (stop.stopLine === "pink") {
+            return "#ff5df4";
+        }
+    }
+    */
 
     return (
         <form className="stop-form" onSubmit={handleSubmit}>
@@ -81,12 +98,12 @@ function StopForm({ addStop, updateLine, line }) {
                 onChange={handleStopInputChange}
             />
             <Button type="submit"
-                style={{color: line}}
+                style={{color: 'black'}}
             >Submit</Button>
             <Form.Control
                 as="select"
                 onChange={lineSwitch}
-                style={{ color: line, border: "0px", padding: "7px" }}
+                style={{ color: "black", border: "0px", padding: "7px" }}
             >
                 <option value="red">Red</option>
                 <option value="brown">Brown</option> 
