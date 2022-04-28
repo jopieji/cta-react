@@ -18,6 +18,7 @@ function StopForm({ addStop, updateLine, line }) {
     const orangeKeys = trainStops['trainStops']['orange'];
     const purpleKeys = trainStops['trainStops']['purple'];
     const pinkKeys = trainStops['trainStops']['pink'];
+    const greenKeys = trainStops['trainStops']['green'];
 
     const [stop, setStop] = useState({
         id: "",
@@ -51,6 +52,8 @@ function StopForm({ addStop, updateLine, line }) {
             keys = purpleKeys;
         } else if (stop.stopLine === "pink") {
             keys = pinkKeys;
+        } else if (stop.stopLine === "green") {
+            keys = greenKeys;
         }
         e.preventDefault();
         if (!keys[stop.stopName.toLowerCase()]) {
@@ -111,6 +114,7 @@ function StopForm({ addStop, updateLine, line }) {
                 <option value="orange">Orange</option>
                 <option value="pink">Pink</option>
                 <option value="purple">Purple</option>
+                <option value="green">Green</option>
             </Form.Control>
         </form>
     );

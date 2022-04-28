@@ -39,6 +39,9 @@ function Stop({ stop, stops, removeStop, setTimeState, refresh, flag }) {
         destN = "To Linden: ";
         destS = "To Loop: ";
         colorOfText = "#6a24ff";
+    } else if (stop.stopLine === "green") {
+        destN = "To Harlem: ";
+        destS = "To Ashland/63rd or Cottage Grove: ";
     }
 
     // state for API calls
