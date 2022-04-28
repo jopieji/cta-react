@@ -42,6 +42,7 @@ function Stop({ stop, stops, removeStop, setTimeState, refresh, flag }) {
     } else if (stop.stopLine === "green") {
         destN = "To Harlem: ";
         destS = "To Ashland/63rd or Cottage Grove: ";
+        colorOfText = "#0c9c34";
     }
 
     // state for API calls
