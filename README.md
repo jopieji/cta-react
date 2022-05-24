@@ -14,6 +14,8 @@ Check it out at [CTA Train Tracker](https://cta-react-heroku.herokuapp.com/)
 
 It was deployed via Heroku, which threw me for a loop initially, but should make CI/CD really easy. Currently, it just uses local storage to store your stops, so you won't have the same data displayed on different devices. I'll fix this at a later date, but didn't want to deal with database configuration on top of making my API work.
 
+If you see an error message, it is because I ran out of free dyno hours on Heroku. I cannot pay for a server at this time, so the app is down towards the end of every month :(
+
 ---
 ### Technology
 The technologies I am using React, Nodejs, the CTA Train Tracker API, Express, and Heroku. Right now, I'm just using Local Storage to store stops, but a login function and cross-platform data sharing could make the user experience more pleasurable. 
