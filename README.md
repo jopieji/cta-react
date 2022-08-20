@@ -6,7 +6,7 @@
 ### Overview
 This project is going to be a web app that tracks a user's selected CTA trains and buses and provides real time data on when they will arrive. Hopefully, this app will be useful to someone, as I am not sure there is a browser-based CTA tracker out right now.
 
-It currently supports the Red, Brown, Blue, and Orange Lines.
+It now supports all lines!
 
 ---
 ### Using for Yourself
