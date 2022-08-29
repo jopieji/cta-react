@@ -9,6 +9,10 @@ This project is going to be a web app that tracks a user's selected CTA trains a
 It now supports all lines!
 
 ---
+### NOTE
+Salesforce purchased Heroku, the hosting service I use for this app. They are changing the terms for their free tier service, so I need to find a new hosting platform for this application. This transition might take a little while, so I appreciate your patience.
+
+---
 ### Using for Yourself
 Check it out at [CTA Train Tracker](https://cta-react-heroku.herokuapp.com/)
 
