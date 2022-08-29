@@ -98,7 +98,7 @@ function Stop({ stop, stops, removeStop, setTimeState, refresh, flag }) {
     useEffect(() => {
 
         const getTrainDataFromExpress = (stopIDN) => {
-            Axios.get(`https://vercel.com/jopieji/cta-api/train/${stopIDN}`)
+            Axios.get(`https://cta-api.vercel.app/train/${stopIDN}`)
                 .then(
                     (response) => {
                         // set mins to arrival
@@ -114,7 +114,7 @@ function Stop({ stop, stops, removeStop, setTimeState, refresh, flag }) {
         const getSouthTrainDataFromExpress = (stopIDS) => {
             //console.log(stopIDS);
             // "https://cta-api-heroku.herokuapp.com"
-            Axios.get(`https://vercel.com/jopieji/cta-api/train/${stopIDS}`)
+            Axios.get(`https://cta-api.vercel.app/train/${stopIDS}`)
                 .then(
                     (response) => {
                         // set mins to arrival
