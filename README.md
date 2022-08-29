@@ -9,20 +9,14 @@ This project is going to be a web app that tracks a user's selected CTA trains a
 It now supports all lines!
 
 ---
-### NOTE
-Salesforce purchased Heroku, the hosting service I use for this app. They are changing the terms for their free tier service, so I need to find a new hosting platform for this application. This transition might take a little while, so I appreciate your patience.
-
----
 ### Using for Yourself
-Check it out at [CTA Train Tracker](https://cta-react-heroku.herokuapp.com/)
+Check it out at [CTA Train Tracker](https://cta-react.vercel.app/)
 
-It was deployed via Heroku, which threw me for a loop initially, but should make CI/CD really easy. Currently, it just uses local storage to store your stops, so you won't have the same data displayed on different devices. I'll fix this at a later date, but didn't want to deal with database configuration on top of making my API work.
-
-If you see an error message, it is because I ran out of free dyno hours on Heroku. I cannot pay for a server at this time, so the app is down towards the end of every month :(
+Currently, the app uses local storage to store your stops, so you won't have the same data displayed on different devices. I'll fix this at a later date, but didn't want to deal with database configuration on top of making my API work.
 
 ---
 ### Technology
-The technologies I am using React, Nodejs, the CTA Train Tracker API, Express, and Heroku. Right now, I'm just using Local Storage to store stops, but a login function and cross-platform data sharing could make the user experience more pleasurable. 
+The technologies I am using React, Nodejs, the CTA Train Tracker API, Express, and Vercel for deployment. Right now, I'm just using Local Storage to store stops, but a login function and cross-platform data sharing could make the user experience more pleasurable. 
 
 I might try out some no-code tools to see what they are like. No-code tools would speed up development, but might also take away from my learning, so I am a little split on this decision.
 
